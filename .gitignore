@@ -32,6 +32,7 @@ target/
 .classpath
 .factorypath
 .metadata
+
 .project
 .settings
 .springBeans

@@ -42,15 +42,25 @@ public class HomeControllerTest {
     @Autowired private MockMvc mockMvc;
     @Autowired private TestRestTemplate testRestTemplate;
 
+    final private static String host = "http://localhost:";
+    final private static String actuatorEndpoint = "/actuator";
+    final private static String actuatorHealthEndpoint = "/actuator/health";
+
+    private static URI uri;
     private static String baseUrl;
+    private static String baseActuatorUrl;
+    private static String baseActuatorHealthUrl;
 
     @Before
     public void setup() {
-        baseUrl = "http://localhost:" + port;
+        baseUrl = host + port;
+        baseActuatorUrl = host + port + actuatorEndpoint;
+        baseActuatorHealthUrl = host + port + actuatorHealthEndpoint;
     }
 
     @Test
     public void routeToHome() {
+        assertThat(this.testRestTemplate.getForObject(baseUrl, String.class)).contains("HOME!!!");
     }
 
     /**
@@ -58,7 +68,7 @@ public class HomeControllerTest {
      */
     @Test
     public void healthEndpoint_RestTemplate() {
-        assertThat(this.testRestTemplate.getForObject("http://localhost:" + port + "/actuator/health", String.class)).contains("UP");
+        assertThat(this.testRestTemplate.getForObject(baseActuatorHealthUrl, String.class)).contains("UP");
     }
 
     /**
@@ -67,30 +77,27 @@ public class HomeControllerTest {
      */
     @Test
     public void healthEndpoint_MVC() throws Exception {
-        this.mockMvc.perform(get("/actuator/health")).andDo(print())
+        this.mockMvc.perform(get(actuatorHealthEndpoint)).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("UP")));
     }
 
-    @Test
-    public void testAddEmployeeSuccess() throws URISyntaxException {
-        final String baseUrl = "http://localhost:"+port+"/actuator/health";
-        URI uri = new URI(baseUrl);
-
-        String result = this.testRestTemplate.getForObject(valueOf(uri), String.class);
-
-        System.out.println(result);
-    }
 
     @Test
-    public void testActuatorEndpoint() throws URISyntaxException {
-//        final String baseUrl = "http://localhost:"+port+"/actuator";
-        URI uri = new URI(baseUrl + "/actuator");
-
+    public void testActuatorEndpoint_StringResponseEntity() throws URISyntaxException {
+        uri = new URI(baseActuatorUrl);
         ResponseEntity<String> result = this.testRestTemplate.getForEntity(uri, String.class);
 
+        System.out.println(result.getBody());
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(StringUtils.countOccurrencesOf(result.getBody(), "localhost")).isEqualTo(5);
+        assertThat(StringUtils.countOccurrencesOf(result.getBody(), host)).isEqualTo(5);
+    }
+
+
+    @Test
+    public void testActuatorHealthEndpoint_StringResponse() throws URISyntaxException {
+        uri = new URI(baseActuatorHealthUrl);
+        assertThat(testRestTemplate.getForObject(valueOf(uri), String.class)).containsIgnoringCase("UP");
     }
 }
 

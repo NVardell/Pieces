@@ -1,4 +1,4 @@
-package com.bits.pieces.controllers;
+package com.bits.pieces.controller;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -88,7 +88,6 @@ public class HomeControllerTest {
         uri = new URI(baseActuatorUrl);
         ResponseEntity<String> result = this.testRestTemplate.getForEntity(uri, String.class);
 
-        System.out.println(result.getBody());
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(StringUtils.countOccurrencesOf(result.getBody(), host)).isEqualTo(5);
     }

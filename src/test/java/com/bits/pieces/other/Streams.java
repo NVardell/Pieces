@@ -1,6 +1,6 @@
 package com.bits.pieces.other;
 
-import com.bits.pieces.model.Person;
+import com.bits.pieces.app.model.Person;
 import org.junit.Test;
 
 import java.util.ArrayList;

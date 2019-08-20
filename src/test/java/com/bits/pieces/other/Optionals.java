@@ -1,8 +1,8 @@
 package com.bits.pieces.other;
 
-import com.bits.pieces.model.Employee;
-import com.bits.pieces.model.Person;
-import com.bits.pieces.model.Team;
+import com.bits.pieces.app.model.Employee;
+import com.bits.pieces.app.model.Person;
+import com.bits.pieces.app.model.Team;
 import org.junit.Test;
 
 import java.util.Arrays;

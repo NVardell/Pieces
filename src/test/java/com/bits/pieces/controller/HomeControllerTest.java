@@ -85,8 +85,7 @@ public class HomeControllerTest {
 
     @Test
     public void testActuatorEndpoint_StringResponseEntity() throws URISyntaxException {
-        uri = new URI(baseActuatorUrl);
-        ResponseEntity<String> result = this.testRestTemplate.getForEntity(uri, String.class);
+        ResponseEntity<String> result = this.testRestTemplate.getForEntity(new URI(baseActuatorUrl), String.class);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(StringUtils.countOccurrencesOf(result.getBody(), host)).isEqualTo(5);
@@ -95,8 +94,7 @@ public class HomeControllerTest {
 
     @Test
     public void testActuatorHealthEndpoint_StringResponse() throws URISyntaxException {
-        uri = new URI(baseActuatorHealthUrl);
-        assertThat(testRestTemplate.getForObject(valueOf(uri), String.class)).containsIgnoringCase("UP");
+        assertThat(testRestTemplate.getForObject(valueOf(new URI(baseActuatorHealthUrl)), String.class)).containsIgnoringCase("UP");
     }
 }
 

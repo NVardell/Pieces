@@ -1,8 +1,11 @@
 package com.bits.pieces.practice.structures.stacks;
 
+import org.junit.Test;
+
+import java.util.Stack;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-
 
 /**
  * TODO - Add Class Definition
@@ -24,5 +27,6 @@ public class StackTests {
         assertThat(stack.search("Four"), is(-1));
         assertThat(stack.empty(), is(false));
         assertThat(stack.pop(), is("Three"));
+        System.out.println(stack);
     }
 }

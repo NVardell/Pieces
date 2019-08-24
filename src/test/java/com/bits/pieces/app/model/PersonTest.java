@@ -1,7 +1,6 @@
 package com.bits.pieces.app.model;
 
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,9 +20,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author Nate Vardell
  * @since 6/29/2019
  */
+@Slf4j
 public class PersonTest {
 
-    Log log = LogFactory.getLog(PersonTest.class);
     Stream<Employee> employeeStream;
     List<Employee> employeeList;
     List<Person> people = asList(new Person(118, "Joe"), new Person(10, "Jim"), new Person(18, "John"));

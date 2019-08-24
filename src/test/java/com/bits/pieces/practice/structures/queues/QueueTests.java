@@ -1,5 +1,7 @@
 package com.bits.pieces.practice.structures.queues;
 
+import org.junit.Test;
+
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -32,5 +34,7 @@ public class QueueTests {
         llq.add("Awesome");
         llq.add("Amazing");
         assertThat(llq.poll(), is("Awesome"));
+        System.out.println(pq);
+        System.out.println(llq);
     }
 }

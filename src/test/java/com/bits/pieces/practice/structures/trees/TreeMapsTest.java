@@ -23,6 +23,7 @@ public class TreeMapsTest {
 
         assertThat(treeMap.get(1), is(2));
         assertThat(treeMap.size(), is(1));
+        System.out.println(treeMap);
     }
 
     @Test
@@ -34,7 +35,7 @@ public class TreeMapsTest {
 
         songMapTitles.forEach((key, value) -> System.out.println("Song Title = " + key + "\tSong Count = " + value));
 
-        System.out.println("\n");
+        System.out.println("\n" + songMapTitles);
         Map<Song, String> songMapCount = new TreeMap<>(new CountComparator());
         songMapCount.put(new Song("Fire Song", 2), "Two");
         songMapCount.put(new Song("Serious Song", 1), "One");

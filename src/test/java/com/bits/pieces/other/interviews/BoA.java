@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,28 +22,76 @@ import java.util.stream.Stream;
 public class BoA {
 
     private static Map<String, Long> stockAssets = new ConcurrentHashMap<>();
-    private static Map<String, Double> companyValue = new ConcurrentHashMap<>();
+    private static Map<String, Float> companyValue = new ConcurrentHashMap<>();
 
     public static void main (String... args) throws IOException {
+        Instant start = Instant.now();
+
         // Get list of paths to data files
         List<String> files = getRecordFilePaths("C:/Users/NV/Desktop/Data");
 
-        // Print out list of file names
-        System.out.println(files);
-
         // Process each data file
-        processFile(files.get(0));
+//        for(String file:files) {
+//            processFile(file);
+//        }
+        files.parallelStream().forEach(file -> {
+//            Stream<String> lines = null;
+//            try {
+//                lines = Files.lines(Paths.get(file));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+////            lines.forEach(line -> {
+//                lines.parallel().forEach(line -> {
+//                String[] values = line.split("\t");
+//
+//                Long stockCount = stockAssets.getOrDefault(values[2], 0L);
+//                Float companyTrades = companyValue.getOrDefault(values[1], 0F);
+//
+//                if(values[3].equals("SELL"))
+//                    stockAssets.put(values[2], stockCount-Long.parseLong(values[4]));
+//                else
+//                    stockAssets.put(values[2], stockCount+Long.parseLong(values[4]));
+//
+//                companyValue.put(values[1], companyTrades+Float.parseFloat(values[5]));
+//            });
+            try {
+                processFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        // Print maps
-        System.out.println(stockAssets);
-        System.out.println(companyValue);
+        Instant finish = Instant.now();
+        System.out.println("\n\nMILLI-SECONDS ELAPSED = " + Duration.between(start, finish).toMillis());
+        System.out.println("NANO-SECONDS ELAPSED = " + Duration.between(start, finish).toNanos());
+        System.out.println("Millis Elapsed = " + ChronoUnit.MILLIS.between(start, finish));
+        System.out.println("Macros Elapsed = " + ChronoUnit.MICROS.between(start, finish));
+        System.out.println("Nanos Elapsed = " + ChronoUnit.NANOS.between(start, finish) + "\n\n");
+        System.out.println("SORTING NOW");
 
-        // Sort things
+        // Sort & Print Top 20 ListS
+        System.out.println("\nTop Stocks:");
         stockAssets.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
                 .limit(20)
                 .forEach(System.out::println);
+
+        System.out.println("\nTop Companies:");
+
+        companyValue.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .limit(20)
+                .forEach(System.out::println);
+
+        finish = Instant.now();
+        System.out.println("\n\nMILLI-SECONDS ELAPSED = " + Duration.between(start, finish).toMillis());
+        System.out.println("NANO-SECONDS ELAPSED = " + Duration.between(start, finish).toNanos());
+        System.out.println("Millis Elapsed = " + ChronoUnit.MILLIS.between(start, finish));
+        System.out.println("Macros Elapsed = " + ChronoUnit.MICROS.between(start, finish));
+        System.out.println("Nanos Elapsed = " + ChronoUnit.NANOS.between(start, finish) + "\n\n");
     }
 
 
@@ -55,22 +106,15 @@ public class BoA {
         lines.forEach(line -> {
             String[] values = line.split("\t");
 
-            System.out.println("Date = " + values[0]);
-            System.out.println("Company = " + values[1]);
-            System.out.println("Stock = " + values[2]);
-            System.out.println("Indicator = " + values[3]);
-            System.out.println("Shares = " + values[4]);
-            System.out.println("Price = " + values[5] + "\n\n");
-
             Long stockCount = stockAssets.getOrDefault(values[2], 0L);
-            Double companyTrades = companyValue.getOrDefault(values[1], 0.00);
+            Float companyTrades = companyValue.getOrDefault(values[1], 0F);
 
             if(values[3].equals("SELL"))
                 stockAssets.put(values[2], stockCount-Long.parseLong(values[4]));
             else
                 stockAssets.put(values[2], stockCount+Long.parseLong(values[4]));
 
-            companyValue.put(values[1], companyTrades+Double.parseDouble(values[5]));
+            companyValue.put(values[1], companyTrades+Float.parseFloat(values[5]));
         });
     }
 }

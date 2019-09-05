@@ -21,7 +21,7 @@ import static org.hamcrest.core.Is.is;
  */
 public class ThreadTests {
 
-//    @Test
+    @Test
     public void givenMultiThread_whenNonSyncMethod() throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(2);
         SyncMethod summation = new SyncMethod();

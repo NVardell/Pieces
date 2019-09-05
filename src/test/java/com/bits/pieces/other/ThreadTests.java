@@ -1,10 +1,14 @@
 package com.bits.pieces.other;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -19,9 +23,10 @@ import static org.hamcrest.core.Is.is;
  * @author Nate Vardell
  * @since 7/20/2019
  */
+@Slf4j
 public class ThreadTests {
 
-    @Test
+//    @Test
     public void givenMultiThread_whenNonSyncMethod() throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(2);
         SyncMethod summation = new SyncMethod();
@@ -36,26 +41,26 @@ public class ThreadTests {
         SyncMethod summation = new SyncMethod();
 
         Instant start = Instant.now();
-        IntStream.range(0, 500000).forEach(count -> service.submit(summation::syncCalculate));
+        IntStream.range(0, 100000).forEach(count -> service.submit(summation::syncCalculate));
         Instant finish = Instant.now();
 
         service.awaitTermination(1000, TimeUnit.MILLISECONDS);
-        assertThat(summation.getSum(), is(5000));
+        assertThat(summation.getSum(), is(100000));
 
         printElapsedTime(start, finish);
     }
 
     @Test
     public void givenMultiThread_whenSyncMethod_2() throws InterruptedException {
-        ExecutorService service = Executors.newFixedThreadPool(4);
+        ExecutorService service = Executors.newFixedThreadPool(8);
         SyncMethod summation = new SyncMethod();
 
         Instant start = Instant.now();
-        IntStream.range(0, 500000).forEach(count -> service.submit(summation::syncCalculate));
+        IntStream.range(0, 100000).forEach(count -> service.submit(summation::syncCalculate));
         Instant finish = Instant.now();
 
         service.awaitTermination(1000, TimeUnit.MILLISECONDS);
-        assertThat(summation.getSum(), is(5000));
+        assertThat(summation.getSum(), is(100000));
 
         printElapsedTime(start, finish);
     }
@@ -66,7 +71,12 @@ public class ThreadTests {
         private void calculate() { sum += 1; }
         private synchronized void syncCalculate() {
             sum += 1;
-            System.out.println("Thread's name: " + Thread.currentThread().getName());
+            sum -= 1;
+            sum += 1;
+            sum -= 1;
+            sum += 1;
+            log.info(".");
+//            System.out.println("Thread's name: " + Thread.currentThread().getName());
         }
     }
 
@@ -76,4 +86,47 @@ public class ThreadTests {
         System.out.println("INSTANT - MILLI = " + ChronoUnit.MILLIS.between(start, finish));
     }
 
+
+
+
+
+
+    @Test
+    public void recursivePermutations(){
+//        ArrayList<ArrayList<Integer>> uniquePerms = permuteUnique(new int[]{1, 2, 3});
+//        uniquePerms.forEach(System.out::println);
+
+//        https://www.baeldung.com/java-combinations-algorithm
+//      https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+//      http://hmkcode.com/calculate-find-all-possible-combinations-of-an-array-using-java/
+//      PARALLEL PERMS - https://dzone.com/articles/java-8-master-permutations
+//        https://www.techiedelight.com/find-distinct-combinations-of-given-length/
+//        R = Ways to choose
+//        N = Number of elements
+        int n = 3;
+        int r = 3;
+        List<int[]> combinations = generate1(n, r);
+        for (int[] combination : combinations) {
+            System.out.println(Arrays.toString(combination));
+        }
+
+        System.out.printf("generated %d combinations of %d items from %d ", combinations.size(), r, n);
+    }
+
+
+    private void helper1(List<int[]> combinations, int data[], int start, int end, int index) {
+        if (index == data.length) {
+            int[] combination = data.clone();
+            combinations.add(combination);
+        } else if (start <= end) {
+            data[index] = start;
+            helper1(combinations, data, start + 1, end, index + 1);
+            helper1(combinations, data, start + 1, end, index);
+        }
+    }
+    private List<int[]> generate1(int n, int r) {
+        List<int[]> combinations = new ArrayList<>();
+        helper1(combinations, new int[r], 0, n-1, 0);
+        return combinations;
+    }
 }

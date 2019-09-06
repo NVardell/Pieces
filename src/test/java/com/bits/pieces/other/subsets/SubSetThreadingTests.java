@@ -1,4 +1,4 @@
-package com.bits.pieces.other;
+package com.bits.pieces.other.subsets;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -24,16 +24,8 @@ import static org.hamcrest.core.Is.is;
  * @since 7/20/2019
  */
 @Slf4j
-public class ThreadTests {
+public class SubSetThreadingTests {
 
-//    @Test
-    public void givenMultiThread_whenNonSyncMethod() throws InterruptedException {
-        ExecutorService service = Executors.newFixedThreadPool(2);
-        SyncMethod summation = new SyncMethod();
-        IntStream.range(0, 5000).forEach(count -> service.submit(summation::calculate));
-        service.awaitTermination(1000, TimeUnit.MILLISECONDS);
-        assertThat(summation.getSum(), is(5000));
-    }
 
     @Test
     public void givenMultiThread_whenSyncMethod() throws InterruptedException {
@@ -48,22 +40,20 @@ public class ThreadTests {
         assertThat(summation.getSum(), is(100000));
 
         printElapsedTime(start, finish);
-    }
 
-    @Test
-    public void givenMultiThread_whenSyncMethod_2() throws InterruptedException {
-        ExecutorService service = Executors.newFixedThreadPool(8);
-        SyncMethod summation = new SyncMethod();
+        ExecutorService svc = Executors.newFixedThreadPool(8);
+        SyncMethod sum = new SyncMethod();
 
-        Instant start = Instant.now();
-        IntStream.range(0, 100000).forEach(count -> service.submit(summation::syncCalculate));
-        Instant finish = Instant.now();
+        start = Instant.now();
+        IntStream.range(0, 100000).forEach(count -> svc.submit(sum::syncCalculate));
+        finish = Instant.now();
 
         service.awaitTermination(1000, TimeUnit.MILLISECONDS);
         assertThat(summation.getSum(), is(100000));
 
         printElapsedTime(start, finish);
     }
+
 
     @Data
     private class SyncMethod {
@@ -76,7 +66,6 @@ public class ThreadTests {
             sum -= 1;
             sum += 1;
             log.info(".");
-//            System.out.println("Thread's name: " + Thread.currentThread().getName());
         }
     }
 
@@ -93,28 +82,16 @@ public class ThreadTests {
 
     @Test
     public void recursivePermutations(){
-//        ArrayList<ArrayList<Integer>> uniquePerms = permuteUnique(new int[]{1, 2, 3});
-//        uniquePerms.forEach(System.out::println);
+        int n = 94;  //   N = Number of elements
+        int r = 8;  //   R = Ways to choose
+//        List<int[]> combinations = generate1(n, r);
+        List<int[]> combinations = new ArrayList<>();
+        helper1(combinations, new int[r], 0, n-1, 0);
+//        combinations.forEach(combo -> System.out.println(Arrays.toString(combo)));
 
-//
-//
-//
-//      PARALLEL PERMS -
-//
-//        R = Ways to choose
-//        N = Number of elements
-        int n = 3;
-        int r = 3;
-        List<int[]> combinations = generate1(n, r);
-        for (int[] combination : combinations) {
-            System.out.println(Arrays.toString(combination));
-        }
-
-        System.out.printf("generated %d combinations of %d items from %d ", combinations.size(), r, n);
+        System.out.printf("Generated %d combination(s) of %d items from %d.", combinations.size(), r, n);
     }
-
-
-    private void helper1(List<int[]> combinations, int data[], int start, int end, int index) {
+    private void helper1(List<int[]> combinations, int[] data, int start, int end, int index) {
         if (index == data.length) {
             int[] combination = data.clone();
             combinations.add(combination);
@@ -127,6 +104,43 @@ public class ThreadTests {
     private List<int[]> generate1(int n, int r) {
         List<int[]> combinations = new ArrayList<>();
         helper1(combinations, new int[r], 0, n-1, 0);
+        return combinations;
+    }
+
+
+
+
+    @Test
+    public void givenSetAndSelectionSize_whenCalculatedUsingIterativeAlgorithm_thenExpectedCount() {
+        int n = 5;  //   N = Number of elements
+        int r = 3;  //   R = Ways to choose
+
+        List<int[]> selection = generateIterative(n, r);
+        assertThat(selection.size(), is(10));
+    }
+    private List<int[]> generateIterative(int n, int r) {
+        List<int[]> combinations = new ArrayList<>();
+        int[] combination = new int[r];
+
+        // initialize with lowest lexicographic combination
+        for (int i = 0; i < r; i++) {
+            combination[i] = i;
+        }
+
+        while (combination[r - 1] < n) {
+            combinations.add(combination.clone());
+
+            // generate next combination in lexicographic order
+            int t = r - 1;
+            while (t != 0 && combination[t] == n - r + t) {
+                t--;
+            }
+            combination[t]++;
+            for (int i = t + 1; i < r; i++) {
+                combination[i] = combination[i - 1] + 1;
+            }
+        }
+
         return combinations;
     }
 }

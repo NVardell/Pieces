@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -37,7 +38,82 @@ import static org.hamcrest.core.Is.is;
  */
 public class FileTests {
 
-    private static final String DIR = "C:/Users/NV/Desktop/Data";      // YUP
+    private static final String DIR = "C:/Users/NV/Desktop/Data";
+    private static final String FILE = "fileChannelTest.txt";
+
+
+    /**
+     * Write with FileChannel
+     *      If you are dealing with large files, FileChannel can be faster than standard IO.
+     *      The following code write String to a file using FileChannel:
+     * @throws IOException
+     */
+    @Test
+    public void givenWritingToFile_whenUsingFileChannel_thenCorrect() throws IOException {
+        RandomAccessFile stream = new RandomAccessFile(FILE, "rw");
+        FileChannel channel = stream.getChannel();
+//        String value = "Hello";
+
+        String value;
+        List<List<Integer>> listOfCombos = Arrays.asList(
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000007),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000020),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000021),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000022),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000023),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000024),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000025),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000026),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000027),
+                Arrays.asList(26000000, 26000001, 26000002, 26000003, 26000004, 26000005, 26000006, 26000028)
+        );
+
+        value = listOfCombos.toString();
+//        value = Arrays.toString(new List[]{listOfCombos});
+
+        byte[] strBytes = value.getBytes();
+        ByteBuffer buffer = ByteBuffer.allocate(strBytes.length);
+        buffer.put(strBytes);
+        buffer.flip();
+        channel.write(buffer);
+        stream.close();
+        channel.close();
+
+        // verify
+        RandomAccessFile reader = new RandomAccessFile(FILE, "r");
+        assertThat(reader.readLine(), is(value));
+        reader.close();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void listDesktopContents() {

@@ -29,12 +29,16 @@ public class QueueTests {
         pq.add("Awesome");
         pq.add("Amazing");
         assertThat(pq.poll(), is("Amazing"));
+        assertThat(pq.size(), is(1));
 
         Queue<String> llq = new LinkedList<>();
         llq.add("Awesome");
         llq.add("Amazing");
         assertThat(llq.poll(), is("Awesome"));
+        llq.add("Amazing2");
         System.out.println(pq);
         System.out.println(llq);
+        System.out.println(llq.element());
+        assertThat(llq.isEmpty(), is(false));
     }
 }

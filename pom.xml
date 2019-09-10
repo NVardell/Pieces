@@ -67,6 +67,21 @@
             <version>3.9</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.dpaukov</groupId>
+            <artifactId>combinatoricslib3</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>

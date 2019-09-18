@@ -4,6 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 /**
  * TODO - Add Class Definition
  *
@@ -14,6 +19,62 @@ import org.junit.Test;
 //import static org.hamcrest.MatcherAssert.assertThat;
 @Slf4j
 public class Temp {
+
+    @Test
+    public void testAdd() {
+        List<Integer> indexes = Arrays.asList(0);
+        indexes.add(2);
+        System.out.println(indexes);
+    }
+
+    @Test
+    public void testAdd_2() {
+        List<Integer> indexes = new ArrayList(){{add(2);}};
+        indexes.add(2);
+        System.out.println(indexes);
+    }
+
+    @Test
+    public void random() {
+        List<Integer> indexes = new ArrayList(){{add(2); add(4);}};
+        indexes.add(6); indexes.add(17);
+        indexes.add(632); indexes.add(18);
+        indexes.add(12); indexes.add(19);
+        indexes.add(234); indexes.add(20);
+        indexes.add(61); indexes.add(21);
+        indexes.add(63); indexes.add(22);
+        indexes.add(12); indexes.add(23);
+        indexes.add(11);
+        indexes.add(14);
+        indexes.add(15);
+        indexes.add(16);
+        System.out.println(indexes);
+        int randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+        randomIndex = new Random().nextInt(indexes.size());
+        System.out.println(randomIndex);
+    }
+
     @Test
     public void testRepeatingString(){
         String str = "helloslkhellodjladfjhello";

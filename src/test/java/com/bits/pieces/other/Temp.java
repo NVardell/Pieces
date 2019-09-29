@@ -21,6 +21,40 @@ import java.util.Random;
 public class Temp {
 
     @Test
+    public void testSearchRange(){
+        System.out.println(Arrays.toString(searchRange(new int[]{5,7,7,8,8,10}, 7)));
+    }
+
+    int low = -1;
+    int high = -1;
+
+    public int[] searchRange(int[] nums, int target) {
+        int halfway = nums.length / 2;
+        return new int[]{low, high};
+    }
+
+    @Test
+    public void testInts(){
+        int[] ia = new int[] {5,7,7,8,8,10};
+        int half = ia.length / 2;
+        System.out.println(ia.length);
+        System.out.println(half);
+
+        int[] ha = Arrays.copyOfRange(ia, 0, half);
+        System.out.println(Arrays.toString(ha));
+        int[] ha2 = Arrays.copyOfRange(ia, half, ia.length);
+        System.out.println(Arrays.toString(ha2));
+    }
+
+    @Test
+    public void testString(){
+        String temp = "asdf-adsf-";
+        System.out.println(temp);
+        temp = temp.trim();
+        System.out.println(temp);
+    }
+
+    @Test
     public void testAdd() {
         List<Integer> indexes = Arrays.asList(0);
         indexes.add(2);

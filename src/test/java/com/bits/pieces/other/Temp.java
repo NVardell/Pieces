@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -30,6 +31,13 @@ public class Temp {
     @Test
     public void testAdd_2() {
         List<Integer> indexes = new ArrayList(){{add(2);}};
+        indexes.add(2);
+        System.out.println(indexes);
+    }
+
+    @Test
+    public void testAdd_3() {
+        List<Integer> indexes = Collections.emptyList();
         indexes.add(2);
         System.out.println(indexes);
     }

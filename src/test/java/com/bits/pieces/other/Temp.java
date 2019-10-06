@@ -21,6 +21,73 @@ import java.util.Random;
 public class Temp {
 
     @Test
+    public void modTests(){
+//        System.out.println(24%2880);
+//        System.out.println(2880%24);
+//        System.out.println(69120%24);
+//        System.out.println(69120%27);
+//        System.out.println(69120%39);
+//        System.out.println(69120%42);
+//        System.out.println(69120%48);
+//        System.out.println(69120%6);
+//        System.out.println("\n");
+//        System.out.println(maxDivisor(24));
+//        System.out.println(maxDivisor(7));
+        int x = 3;
+//        System.out.println(24%x);
+//        System.out.println(27%x);
+//        System.out.println(39%x);
+//        System.out.println(42%x);
+//        System.out.println(48%x);
+//        System.out.println(93%x);
+//        System.out.println(108%x);
+//        System.out.println(126%x);
+//        System.out.println(138%x);
+//        System.out.println(189%x);
+//        System.out.println(201%x);
+//        System.out.println(288%x);
+//        System.out.println(423%x);
+//        System.out.println(516%x);
+//        System.out.println(633%x);
+//        System.out.println(708%x);
+//        System.out.println(1377%x);
+//        System.out.println(2130%x);
+//        System.out.println(2880%x);
+        x=2;
+        System.out.println(12%x);
+        System.out.println(20%x);
+        System.out.println(24%x);
+        System.out.println(44%x);
+        System.out.println(48%x);
+        System.out.println(60%x);
+        System.out.println(64%x);
+        System.out.println(96%x);
+        System.out.println(116%x);
+        System.out.println(316%x);
+        System.out.println(404%x);
+        System.out.println(476%x);
+        System.out.println(948%x);
+        System.out.println(1380%x);
+        System.out.println(2512%x);
+        System.out.println(3392%x);
+    }
+
+    int maxDivisor(int v){
+
+        int divisor = 0;
+
+        for(int i=2; i<8; i++)
+            // {
+            if(v%i == 0)
+                divisor=i;
+        // }
+        if(divisor%3==0)
+            return 3;
+        if(divisor%2==0)
+            return 2;
+        return divisor;
+    }
+    @Test
     public void testSearchRange(){
         System.out.println(Arrays.toString(searchRange(new int[]{5,7,7,8,8,10}, 7)));
     }

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  *
  */
-public class Tester {
+public class T2 {
 
     private static int[] start = new int[2];
 

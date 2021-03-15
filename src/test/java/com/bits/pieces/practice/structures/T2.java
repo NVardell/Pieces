@@ -4,12 +4,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.hasItem;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  *
  */
 public class T2 {
 
     private static int[] start = new int[2];
+    int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 
     /**
      * Main Program Driver
@@ -18,39 +23,28 @@ public class T2 {
         // For each line in buffer - Add to String list.
         //    - Use size of list to set Height Value
         //    - Use String Length to set Width Value
-        List<String> lines = new ArrayList<String>() {{
-            add("###...##..");
-            add("....#....#");
-            add("#..###.#.#");
-            add("S#.#.#.#..");
-            add("...#...E#.");
-        }};
-//        Queue<String> lines = new LinkedList<>();
-//        lines.add("###...##..");
-//        lines.add("....#....#");
-//        lines.add("#..###.#.#");
-//        lines.add("S#.#.#.#..");
-//        lines.add("...#...E#.");
 
-        List<String> lines_trap = new ArrayList<String>() {{ add("#S#.E"); }}; // Expected: "Trapped"
-        List<String> lines_short = new ArrayList<String>() {{ add("#S..E"); }}; // Expected: "#S**E"
-        List<String> lines_medium = new ArrayList<String>() {{
-            add("#S.#E");  // Expected: "#S*#E"
-            add("##...");  // Expected: "##***"
-        }};
+        // Test #1
+        List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#.");  }};
+        // Trap     List<String> lines = new ArrayList<String>() {{ add("#S#.E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("Trapped"); }};
+        // Short    List<String> lines = new ArrayList<String>() {{ add("#S..E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("#S**E"); }};
+        // Medium   List<String> lines = new ArrayList<String>() {{  add("#S.#E"); add("##..."); }}; List<String> lines_expected = new ArrayList<String>() {{  add("#S*#E"); add("##***"); }};
 
 
+        printLines(lines);
+        validateLines(lines, lines_expected);
 
         char[][] grid = createGrid(lines);
         getNeighbors(grid);
     }
 
 
+
     /**
      * Iterate through each line of input.
      * @return List of input strings
      */
-    private static char[][] createGrid(List<String> lines) throws IOException {
+    private static char[][] createGrid(List<String> lines) {
 
         int l = lines.size(); System.out.println("Length = " + l);
         int w = lines.get(0).length(); System.out.println("Width = " + w);
@@ -88,4 +82,20 @@ public class T2 {
             System.out.println();
         }
     }
+
+    private static void printLines(List<String> lines) {
+
+    }
+
+    private static void validateLines(List<String> lines, List<String> lines_expected) {
+        assertThat(lines.size(), is(lines_expected.size()));
+
+        for(String line : lines)
+            assertThat(lines_expected, hasItem(line));
+    }
+    // ""
+    // ""
+    // ""
+    // ""
+    // ""
 }

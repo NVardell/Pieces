@@ -80,10 +80,26 @@ public class T2 {
     }
 
 
-    private static void getNeighbors(int row, int col, char[][] grid) {
-        for(int[] direction : directions) {
+    private static List<int[]> getNeighbors(int row, int col, char[][] grid) {
+        List<int[]> neighbors = new ArrayList<>();
 
+        for(int[] direction : directions) {
+            int newRow = row + direction[0];
+            int newCol = col + direction[1];
+
+            if(newRow < 0
+                    || newCol < 0
+                    || newRow >= grid.length
+                    || newCol >= grid[0].length
+                    || grid[newRow][newCol] != 0 )
+                continue;
+
+            neighbors.add(new int[]{newRow, newCol});
+            System.out.println(neighbors);
         }
+
+        System.out.print("Returning Neighbors List - "); System.out.println(neighbors);
+        return neighbors;
     }
 
 
@@ -95,12 +111,10 @@ public class T2 {
             System.out.println();
         }
     }
-
     private static void printLines(List<String> lines) {
         for(String line : lines)
             System.out.println(line);
     }
-
     private static void validateLines(List<String> lines, List<String> lines_expected) {
         assertThat(lines.size(), is(lines_expected.size()));
 

@@ -16,16 +16,16 @@ public class Tester {
      * Main Program Driver
      */
     public static void main(String[] args) throws IOException {
-        getGrid();
+        char[][] grid = createGrid();
+        getNeighbors(grid);
     }
 
 
     /**
      * Iterate through each line of input.
+     * @return
      */
-    private static void getGrid() throws IOException {
-        // InputStreamReader reader = new InputStreamReader(System.in, StandardCharsets.UTF_8);
-        // BufferedReader in = new BufferedReader(reader);
+    private static char[][] createGrid() throws IOException {
 
         // For each line in buffer - Add to String list.
         //    - Use size of list to set Height Value
@@ -58,16 +58,27 @@ public class Tester {
                 grid[x][y] = c;
 
                 if(c=='S') {
-                    start[0]=x;start[1]=y;
-                } else if(c=='E')
-
+                    start[0] = x;
+                    start[1] = y;
+                }
+                else if(c=='E') {
+                    finish[0] = x;
+                    finish[1] = y;
+                }
             }
             x++;
         }
 
         printGrid(grid, l, w);
-
+        return grid;
     }
+
+
+    private static void getNeighbors(char[][] grid) {
+        
+    }
+
+
 
     private static void printGrid(char[][] grid, int l, int w) {
         for(int x=0; x<l; x++) {

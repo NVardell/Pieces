@@ -13,8 +13,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class T2 {
 
+    private static int width;
+    private static int length;
+    private static boolean[][] visited;
     private static int[] start = new int[2];
-    int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    private static final int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+
 
     /**
      * Main Program Driver
@@ -24,20 +28,27 @@ public class T2 {
         //    - Use size of list to set Height Value
         //    - Use String Length to set Width Value
 
-        // Test #1
-        List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#.");  }};
+        // Input = Output
+        List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }};
+        // Example  List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#.");  }};
         // Trap     List<String> lines = new ArrayList<String>() {{ add("#S#.E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("Trapped"); }};
         // Short    List<String> lines = new ArrayList<String>() {{ add("#S..E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("#S**E"); }};
         // Medium   List<String> lines = new ArrayList<String>() {{  add("#S.#E"); add("##..."); }}; List<String> lines_expected = new ArrayList<String>() {{  add("#S*#E"); add("##***"); }};
 
 
-        printLines(lines);
+        findPath(createGrid(lines));
+
+
         validateLines(lines, lines_expected);
 
-        char[][] grid = createGrid(lines);
-        getNeighbors(grid);
     }
 
+    private static void findPath(char[][] grid) {
+        visited = new boolean[grid.length][grid[0].length];
+        visited[start[0]][start[1]] = true;
+        System.out.println("Grid Length (↓) - " + grid.length); System.out.println("Grid Width  (→) - " + grid[0].length);
+
+    }
 
 
     /**
@@ -46,13 +57,13 @@ public class T2 {
      */
     private static char[][] createGrid(List<String> lines) {
 
-        int l = lines.size(); System.out.println("Length = " + l);
-        int w = lines.get(0).length(); System.out.println("Width = " + w);
-        char[][] grid = new char[l][w];
+        length = lines.size(); System.out.println("Length = " + length);
+        width = lines.get(0).length(); System.out.println("Width = " + width);
+        char[][] grid = new char[length][width];
 
         int x = 0;
         for(String currentLine : lines) {
-            for (int y = 0; y < w; y++) {
+            for (int y = 0; y < width; y++) {
                 char c = currentLine.charAt(y);
                 grid[x][y] = c;
 
@@ -64,13 +75,15 @@ public class T2 {
             x++;
         }
 
-        printGrid(grid, l, w);
+        printGrid(grid, length, width);
         return grid;
     }
 
 
-    private static void getNeighbors(char[][] grid) {
+    private static void getNeighbors(int row, int col, char[][] grid) {
+        for(int[] direction : directions) {
 
+        }
     }
 
 
@@ -84,7 +97,8 @@ public class T2 {
     }
 
     private static void printLines(List<String> lines) {
-
+        for(String line : lines)
+            System.out.println(line);
     }
 
     private static void validateLines(List<String> lines, List<String> lines_expected) {
@@ -93,9 +107,5 @@ public class T2 {
         for(String line : lines)
             assertThat(lines_expected, hasItem(line));
     }
-    // ""
-    // ""
-    // ""
-    // ""
-    // ""
+
 }

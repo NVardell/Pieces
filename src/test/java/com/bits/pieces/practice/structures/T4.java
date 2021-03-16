@@ -64,8 +64,8 @@ public class T4 {
      */
     private static char[][] createGrid(List<String> lines) {
 
-        length = lines.size(); System.out.println("Length = " + length);
-        width = lines.get(0).length(); System.out.println("Width = " + width);
+        length = lines.size();
+        width = lines.get(0).length();
         char[][] grid = new char[length][width];
 
         int x = 0;
@@ -86,7 +86,6 @@ public class T4 {
     }
 
     private static boolean findPath(char[][] grid) {
-        System.out.println("FINDING PATH");
         parentNodes = new HashMap<>();
 
         boolean[][] visited = new boolean[length][width];
@@ -99,33 +98,26 @@ public class T4 {
             int[] current = q.remove();
 
             if(grid[current[0]][current[1]] == 'E')
-                return true; // TODO - End has been reached - Exit & Update/Print Grid
-            System.out.println("\tProcessing New Node In Queue - " + Arrays.toString(current));
+                return true;
 
             for(int[] neighbor : directions) {
 
-                int[] newNeighbor = {current[0]+neighbor[0], current[1]+neighbor[1]};
-                int newX = newNeighbor[0];
-                int newY = newNeighbor[1];
-                System.out.println("\t\tNew Neighbor [x][y] = [" + newX + "][" + newY + "]");
-
+                int newX = current[0]+neighbor[0];
+                int newY = current[1]+neighbor[1];
 
                 if(newX >= 0 && newY >= 0
                         && newX < length && newY < width
                         && (grid[newX][newY] == '.' || grid[newX][newY] == 'E')) {
 
                     if (!visited[newX][newY]) {
-                        System.out.println("\t\tAdding Neighbor to Queue - [" + newX + "][" + newY + "]");
                         q.add(new int[]{newX, newY});   // Add unvisited spot to Queue
-                        System.out.println("\t\tAdding Neighbor to Parental Map - [" + Arrays.toString(newNeighbor) + "][" + Arrays.toString(current) + "]");
-                        parentNodes.put(Arrays.toString(newNeighbor), current);
+                        parentNodes.put(Arrays.toString(new int[]{newX,newY}), current);
                         visited[newX][newY] = true;     // Mark new spot as visited
                     }
                 }
             }
         }
 
-        System.out.println("END OF FIND PATH FUNCTION ------------");
         return false;
     }
 

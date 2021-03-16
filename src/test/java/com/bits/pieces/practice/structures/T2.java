@@ -2,7 +2,10 @@ package com.bits.pieces.practice.structures;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
@@ -44,10 +47,45 @@ public class T2 {
     }
 
     private static void findPath(char[][] grid) {
-        visited = new boolean[grid.length][grid[0].length];
+        visited = new boolean[length][width];
         visited[start[0]][start[1]] = true;
         System.out.println("Grid Length (↓) - " + grid.length); System.out.println("Grid Width  (→) - " + grid[0].length);
+        System.out.println("Grid Length (↓) - " + length); System.out.println("Grid Width  (→) - " + width);
 
+        Queue<int[]> q = new LinkedList<>();
+        q.add(start);
+
+        while(!q.isEmpty()) {
+            int[] s = q.remove();
+
+            if(grid[s[0]][s[1]] == 'E')
+                return; // TODO - End has been reached - Exit & Update/Print Grid
+            System.out.println("Processing New Node In Queue - " + Arrays.toString(s));
+
+            for (int[] neighbor : directions) {
+
+                int x = s[0] + neighbor[0];
+                int y = s[1] + neighbor[1];
+
+                while (x >= 0
+                        && y >= 0
+                        && x < length
+                        && y < width
+                        && grid[x][y] == '#') {
+
+                    x += neighbor[0];
+                    y += neighbor[1];
+                }
+
+
+                if (!visited[x-neighbor[0]][y-neighbor[1]]) {
+                    q.add(new int[]{x - neighbor[0], y - neighbor[1]});
+                    visited[x - neighbor[0]][y - neighbor[1]] = true;
+                }
+            }
+        }
+
+        System.out.println("END OF FIND PATH FUNCTION ------------");
     }
 
 
@@ -63,7 +101,7 @@ public class T2 {
 
         int x = 0;
         for(String currentLine : lines) {
-            for (int y = 0; y < width; y++) {
+            for (int y=0; y<width; y++) {
                 char c = currentLine.charAt(y);
                 grid[x][y] = c;
 
@@ -80,22 +118,25 @@ public class T2 {
     }
 
 
+
+
+
     private static List<int[]> getNeighbors(int row, int col, char[][] grid) {
         List<int[]> neighbors = new ArrayList<>();
 
+        System.out.println("Collecting Neighbors");
         for(int[] direction : directions) {
             int newRow = row + direction[0];
             int newCol = col + direction[1];
 
-            if(newRow < 0
-                    || newCol < 0
-                    || newRow >= grid.length
-                    || newCol >= grid[0].length
-                    || grid[newRow][newCol] != 0 )
-                continue;
+            if(newRow >= 0
+                    && newCol >= 0
+                    && newRow <= length
+                    && newCol <= width
+                    && grid[newRow][newCol] == '.' )
+                neighbors.add(new int[]{newRow, newCol});
 
-            neighbors.add(new int[]{newRow, newCol});
-            System.out.println(neighbors);
+            System.out.println("\t" + neighbors);
         }
 
         System.out.print("Returning Neighbors List - "); System.out.println(neighbors);

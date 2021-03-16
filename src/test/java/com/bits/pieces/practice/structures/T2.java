@@ -3,8 +3,10 @@ package com.bits.pieces.practice.structures;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import static org.hamcrest.CoreMatchers.hasItem;
@@ -18,9 +20,11 @@ public class T2 {
 
     private static int width;
     private static int length;
-    private static boolean[][] visited;
-    private static int[] start = new int[2];
+    private static final int[] start = new int[2];
+    private static int[] finish = new int[2];
     private static final int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+
+    private static Map<int[], int[]> parentNodes;
 
 
     /**
@@ -47,41 +51,50 @@ public class T2 {
     }
 
     private static void findPath(char[][] grid) {
-        visited = new boolean[length][width];
+
+        parentNodes = new HashMap<>();
+
+        boolean[][] visited = new boolean[length][width];
         visited[start[0]][start[1]] = true;
         System.out.println("Grid Length (↓) - " + grid.length); System.out.println("Grid Width  (→) - " + grid[0].length);
         System.out.println("Grid Length (↓) - " + length); System.out.println("Grid Width  (→) - " + width);
 
         Queue<int[]> q = new LinkedList<>();
         q.add(start);
+        int[] last = {-1,-1};
+        System.out.println("\tLast Node = " + Arrays.toString(last));
 
         while(!q.isEmpty()) {
-            int[] s = q.remove();
+            int[] parent = q.remove();
 
-            if(grid[s[0]][s[1]] == 'E')
-                return; // TODO - End has been reached - Exit & Update/Print Grid
-            System.out.println("Processing New Node In Queue - " + Arrays.toString(s));
+            if(last[0] == -1)
+                last = parent;
+            System.out.println("\tLast Node = " + Arrays.toString(last));
+
+            if(grid[parent[0]][parent[1]] == 'E')
+                break; // TODO - End has been reached - Exit & Update/Print Grid
+            System.out.println("Processing New Node In Queue - " + Arrays.toString(parent));
 
             for (int[] neighbor : directions) {
 
-                int x = s[0] + neighbor[0];
-                int y = s[1] + neighbor[1];
+                int[] newNeighbor = {parent[0]+neighbor[0], parent[1]+neighbor[1]};
+                int newX = newNeighbor[0];
+                int newY = newNeighbor[1];
 
-                while (x >= 0
-                        && y >= 0
-                        && x < length
-                        && y < width
-                        && grid[x][y] == '#') {
 
-                    x += neighbor[0];
-                    y += neighbor[1];
+                if(newX >= 0 && newY >= 0
+                        && newX < length && newY < width
+                        && grid[newX][newY] == '.') {
+
+                    if (!visited[newX][newY]) {
+                        q.add(new int[]{newX, newY});   // Add unvisited spot to Queue
+                        parentNodes.put(newNeighbor, parent);
+                        visited[newX][newY] = true;     // Mark new spot as visited
+                    }
                 }
 
 
-                if (!visited[x-neighbor[0]][y-neighbor[1]]) {
-                    q.add(new int[]{x - neighbor[0], y - neighbor[1]});
-                    visited[x - neighbor[0]][y - neighbor[1]] = true;
-                }
+
             }
         }
 
@@ -108,6 +121,10 @@ public class T2 {
                 if(c=='S') {
                     start[0] = x;
                     start[1] = y;
+                }
+                if(c=='E') {
+                    finish[0] = x;
+                    finish[1] = y;
                 }
             }
             x++;

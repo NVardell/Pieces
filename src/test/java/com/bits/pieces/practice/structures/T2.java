@@ -21,10 +21,11 @@ public class T2 {
     private static int width;
     private static int length;
     private static final int[] start = new int[2];
-    private static int[] finish = new int[2];
+    private static final int[] finish = new int[2];
     private static final int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 
-    private static Map<int[], int[]> parentNodes;
+    private static List<String> lines;
+    private static Map<String, int[]> parentNodes;
 
 
     /**
@@ -36,59 +37,81 @@ public class T2 {
         //    - Use String Length to set Width Value
 
         // Input = Output
-        List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }};
+//        List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }};
         // Example  List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#.");  }};
         // Trap     List<String> lines = new ArrayList<String>() {{ add("#S#.E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("Trapped"); }};
-        // Short    List<String> lines = new ArrayList<String>() {{ add("#S..E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("#S**E"); }};
+        // Short
+         lines = new ArrayList<String>() {{ add("#S..E"); }}; List<String> lines_expected = new ArrayList<String>() {{ add("#S**E"); }};
         // Medium   List<String> lines = new ArrayList<String>() {{  add("#S.#E"); add("##..."); }}; List<String> lines_expected = new ArrayList<String>() {{  add("#S*#E"); add("##***"); }};
-
 
         findPath(createGrid(lines));
 
+        printParents(parentNodes);
+        addPathToMap(parentNodes);
 
         validateLines(lines, lines_expected);
 
     }
 
-    private static void findPath(char[][] grid) {
+    private static void addPathToMap(Map<String, int[]> parentNodes) {
+        System.out.println("UPDATING MAP WITH SHORT PATH - Finish = " + Arrays.toString(finish));
 
+        int[] temp = parentNodes.get(Arrays.toString(finish));
+
+        while(temp != start){
+            System.out.println("\tUPDATING MAP TEMP - " + Arrays.toString(temp));
+            StringBuilder sb = new StringBuilder(lines.get(temp[0]));
+            sb.setCharAt(temp[1], '*');
+            lines.set(temp[0], String.valueOf(sb));
+            System.out.println(lines);
+
+            temp = parentNodes.get(Arrays.toString(temp));
+        }
+
+    }
+
+    private static void printParents(Map<String, int[]> parentNodes) {
+        System.out.println("\n\nParent Map - ");
+        parentNodes.forEach((node,parent) -> {
+            System.out.println("\t" + node + "-" + Arrays.toString(parent));
+        });
+    }
+
+
+    private static void findPath(char[][] grid) {
+        System.out.println("FINDING PATH");
         parentNodes = new HashMap<>();
 
         boolean[][] visited = new boolean[length][width];
         visited[start[0]][start[1]] = true;
-        System.out.println("Grid Length (↓) - " + grid.length); System.out.println("Grid Width  (→) - " + grid[0].length);
-        System.out.println("Grid Length (↓) - " + length); System.out.println("Grid Width  (→) - " + width);
 
         Queue<int[]> q = new LinkedList<>();
         q.add(start);
-        int[] last = {-1,-1};
-        System.out.println("\tLast Node = " + Arrays.toString(last));
 
         while(!q.isEmpty()) {
-            int[] parent = q.remove();
+            int[] current = q.remove();
 
-            if(last[0] == -1)
-                last = parent;
-            System.out.println("\tLast Node = " + Arrays.toString(last));
-
-            if(grid[parent[0]][parent[1]] == 'E')
+            if(grid[current[0]][current[1]] == 'E')
                 break; // TODO - End has been reached - Exit & Update/Print Grid
-            System.out.println("Processing New Node In Queue - " + Arrays.toString(parent));
+            System.out.println("\tProcessing New Node In Queue - " + Arrays.toString(current));
 
-            for (int[] neighbor : directions) {
+            for(int[] neighbor : directions) {
 
-                int[] newNeighbor = {parent[0]+neighbor[0], parent[1]+neighbor[1]};
+                int[] newNeighbor = {current[0]+neighbor[0], current[1]+neighbor[1]};
                 int newX = newNeighbor[0];
                 int newY = newNeighbor[1];
+                System.out.println("\t\tNew Neighbor [x][y] = [" + newX + "][" + newY + "]");
 
 
                 if(newX >= 0 && newY >= 0
                         && newX < length && newY < width
-                        && grid[newX][newY] == '.') {
+                        && (grid[newX][newY] == '.' || grid[newX][newY] == 'E')) {
 
                     if (!visited[newX][newY]) {
+                        System.out.println("\t\tAdding Neighbor to Queue - [" + newX + "][" + newY + "]");
                         q.add(new int[]{newX, newY});   // Add unvisited spot to Queue
-                        parentNodes.put(newNeighbor, parent);
+                        System.out.println("\t\tAdding Neighbor to Parental Map - [" + Arrays.toString(newNeighbor) + "][" + Arrays.toString(current) + "]");
+                        parentNodes.put(Arrays.toString(newNeighbor), current);
                         visited[newX][newY] = true;     // Mark new spot as visited
                     }
                 }
@@ -168,6 +191,8 @@ public class T2 {
                 System.out.print(grid[x][y]);
             System.out.println();
         }
+        System.out.println(Arrays.toString(start));
+        System.out.println(Arrays.toString(finish));
     }
     private static void printLines(List<String> lines) {
         for(String line : lines)

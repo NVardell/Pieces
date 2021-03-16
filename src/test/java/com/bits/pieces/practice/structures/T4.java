@@ -23,7 +23,7 @@ public class T4 {
     private static int[] finish;
     private static final int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 
-    private static List<String> lines, lines_expected;
+    private static List<String> lines;
     private static Map<String, int[]> parentNodes;
 
 
@@ -32,7 +32,8 @@ public class T4 {
      */
     public static void main(String[] args) throws IOException {
         // Example
-        lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }};  lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#.");  }};
+        lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }};
+        List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#."); }};
         runner(lines, lines_expected);
 
         // Trap

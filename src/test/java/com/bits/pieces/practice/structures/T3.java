@@ -138,7 +138,6 @@ public class T3 {
             StringBuilder sb = new StringBuilder(lines.get(temp[0]));
             sb.setCharAt(temp[1], '*');
             lines.set(temp[0], String.valueOf(sb));
-            System.out.println(lines);
 
             temp = parentNodes.get(Arrays.toString(temp));
         }

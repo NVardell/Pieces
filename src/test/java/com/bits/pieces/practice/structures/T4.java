@@ -19,32 +19,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class T4 {
 
     private static int width, length;
-    private static int[] start;
-    private static int[] finish;
-    private static final int[][] directions={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    private static int[] start, finish;
+    private static char[][] grid;
+    private static final int[][] DIRECTIONS ={{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
 
-    private static List<String> lines;
     private static Map<String, int[]> parentNodes;
 
 
-    /**
-     * Main Program Driver
-     */
     public static void main(String[] args) throws IOException {
-        // Example
-        lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }};
-        List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#."); }};
+        // Example Test Case
+        List<String> lines = new ArrayList<String>() {{ add("###...##.."); add("....#....#"); add("#..###.#.#"); add("S#.#.#.#.."); add("...#...E#.");  }}; List<String> lines_expected = new ArrayList<String>() {{  add("###***##.."); add("..**#**..#"); add("#.*###*#.#"); add("S#*#.#*#.."); add("***#..*E#."); }};
         runner(lines, lines_expected);
 
-        // Trap
+        // Trap Test Case
         lines = new ArrayList<String>() {{ add("#S#.E"); }}; lines_expected = new ArrayList<String>() {{ add("Trapped"); }};
         runner(lines, lines_expected);
 
-        // Short
+        // Short Test Case
         lines = new ArrayList<String>() {{ add("#S..E"); }}; lines_expected = new ArrayList<String>() {{ add("#S**E"); }};
         runner(lines, lines_expected);
 
-        // Medium
+        // Medium Test Case
         lines = new ArrayList<String>() {{  add("#S.#E"); add("##..."); }};  lines_expected = new ArrayList<String>() {{  add("#S*#E"); add("##***"); }};
         runner(lines, lines_expected);
 
@@ -55,19 +50,15 @@ public class T4 {
             addPathToMap(parentNodes);
             validateLines(lines, lines_expected);
         } else
-            System.out.println("Trapped");
+            System.out.println("Trapped\n\n");
     }
 
 
-    /**
-     * Iterate through each line of input.
-     * @return List of input strings
-     */
     private static char[][] createGrid(List<String> lines) {
 
         length = lines.size();
         width = lines.get(0).length();
-        char[][] grid = new char[length][width];
+        grid = new char[length][width];
 
         int x = 0;
         for(String currentLine : lines) {
@@ -101,7 +92,7 @@ public class T4 {
             if(grid[current[0]][current[1]] == 'E')
                 return true;
 
-            for(int[] neighbor : directions) {
+            for(int[] neighbor : DIRECTIONS) {
 
                 int newX = current[0]+neighbor[0];
                 int newY = current[1]+neighbor[1];
@@ -127,20 +118,19 @@ public class T4 {
         int[] temp = parentNodes.get(Arrays.toString(finish));
 
         while(temp != start){
-            String newLine = lines.get(temp[0]);
-            newLine = newLine.substring(0,temp[1]) + '*' + newLine.substring(temp[1]+1);
-            lines.set(temp[0], newLine);
+            grid[temp[0]][temp[1]] = '*';
             temp = parentNodes.get(Arrays.toString(temp));
         }
     }
 
 
     private static void validateLines(List<String> lines, List<String> lines_expected) {
-        System.out.println("\n\nASSERTING LINES");
+        System.out.println("ASSERTING LINES\n\n");
         assertThat(lines.size(), is(lines_expected.size()));
 
-        for(String line : lines)
-            assertThat(lines_expected, hasItem(line));
+        for(int x=0; x<length; x++) {
+            assertThat(lines_expected, hasItem(String.valueOf(grid[x])));
+        }
     }
 
 }

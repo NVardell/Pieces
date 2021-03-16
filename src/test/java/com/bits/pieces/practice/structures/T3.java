@@ -134,10 +134,16 @@ public class T3 {
         int[] temp = parentNodes.get(Arrays.toString(finish));
 
         while(temp != start){
-//            System.out.println("\tUPDATING MAP TEMP - " + Arrays.toString(temp));
+            System.out.println("\tUPDATING MAP TEMP - " + Arrays.toString(temp));
+            //--------------------------
             StringBuilder sb = new StringBuilder(lines.get(temp[0]));
             sb.setCharAt(temp[1], '*');
             lines.set(temp[0], String.valueOf(sb));
+            //---------------------------------
+            // String newLine = lines.get(temp[0]);
+            // newLine = newLine.substring(0,temp[1]) + '*' + newLine.substring(temp[1]+1);
+            // lines.set(temp[0], newLine);
+            //------------------------------------------
 
             temp = parentNodes.get(Arrays.toString(temp));
         }

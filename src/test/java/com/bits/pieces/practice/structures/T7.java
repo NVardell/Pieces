@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * NAME - 253. Meeting Rooms II
  * TOPICS - Heap, Sort, Greedy
  * URL - https://leetcode.com/problems/meeting-rooms-ii/
- *      - https://leetcode.com/problems/meeting-rooms-ii/submissions/
+ * - https://leetcode.com/problems/meeting-rooms-ii/submissions/
  * <p>
  * PROBLEM
  * Given an array of meeting time intervals where intervals[i] = [starti, endi]
@@ -42,7 +42,7 @@ public class T7 {
     private static final int[][] inputSix = {{1, 5}, {8, 9}, {8, 9}};
     private static final int[][] inputSeven = {{9, 14}, {5, 6}, {3, 5}, {12, 19}};
     private static final int[][] inputEight = {{0, 30}, {5, 10}, {15, 20}, {10, 15}};
-    private static final int[][] inputNine = {{64738,614406}, {211748,780229}, {208641,307338}, {499908,869489}, {218907,889449}, {177201,481150}, {123679,384415}, {120440,404695}, {191810,491295}, {800783,826206}, {165175,221995}, {420412,799259}, {484168,617671}, {746410,886281}, {765198,792311}, {493853,971285}, {194579,313372}, {119757,766274}, {101315,917883}, {557309,599256}, {167729,723580}, {731216,988021}, {225883,752657}, {588461,854166}, {231328,285640}, {772811,869625}, {892212,973218}, {143535,306402}, {336799,998119}, {65892,767719}, {380440,518918}, {321447,558462}, {54489,234291}, {43934,44986}, {11260,968186}, {248987,707178}, {355162,798511}, {661962,781083}, {149228,412762}, {71084,953153}, {44890,655659}, {708781,956341}, {251847,707658}, {650743,932826}, {561965,814428}, {697026,932724}, {583473,919161}, {463638,951519}, {769086,785893}, {17912,923570}, {423089,653531}, {317269,395886}, {412117,701471}, {465312,520002}, {168739,770178}, {624091,814316}, {143729,249836}, {699196,879379}, {585322,989087}, {501009,949840}, {424092,580498}, {282845,345477}, {453883,926476}, {392148,878695}, {471772,771547}, {339375,590100}, {110499,619323}, {8713,291093}, {268241,283247}, {160815,621452}, {168922,810532}, {355051,377247}, {10461,488835}, {220598,261326}, {403537,438947}, {221492,640708}, {114702,926457}, {166567,477230}, {856127,882961}, {218411,256327}, {184364,909088}, {130802,828793}, {312028,811716}, {294638,839683}, {269329,343517}, {167968,391811}, {25351,369583}, {210660,454598}, {166834,576380}, {296440,873280}, {660142,822072}, {33441,778393}, {456500,955635}, {59220,954158}, {306295,429913}, {110402,448322}, {44523,88192}, {231386,353197}, {120940,902781}, {348758,597599}, {329467,664450}, {208411,890114}, {230238,516885}, {434113,602358}, {349759,419831}, {10689,308144}, {94526,180723}, {435280,986655}, {611999,690154}, {75208,395348}, {403243,489260}, {498884,611075}, {487209,863242}, {13900,873774}, {656706,782943}, {53478,586952}, {226216,723114}, {554799,922759}, {467777,689913}, {80630,147482}, {277803,506346}, {532240,976029}, {206622,761192}, {148277,985819}, {10879,807349}, {952227,971268}, {172074,919866}, {239230,384499}, {607687,984661}, {4405,264532}, {41071,437502}, {432603,661142}, {144398,907360}, {139605,360037}, {943191,997317}, {12894,171584}, {382477,800157}, {452077,518175}, {208007,398880}, {375250,489928}, {384503,726837}, {278181,628759}, {114470,635575}, {382297,733713}, {156559,874172}, {507016,815520}, {164461,532215}, {17332,536971}, {418721,911117}, {11497,14032}};
+    private static final int[][] inputNine = {{64738, 614406}, {211748, 780229}, {208641, 307338}, {499908, 869489}, {218907, 889449}, {177201, 481150}, {123679, 384415}, {120440, 404695}, {191810, 491295}, {800783, 826206}, {165175, 221995}, {420412, 799259}, {484168, 617671}, {746410, 886281}, {765198, 792311}, {493853, 971285}, {194579, 313372}, {119757, 766274}, {101315, 917883}, {557309, 599256}, {167729, 723580}, {731216, 988021}, {225883, 752657}, {588461, 854166}, {231328, 285640}, {772811, 869625}, {892212, 973218}, {143535, 306402}, {336799, 998119}, {65892, 767719}, {380440, 518918}, {321447, 558462}, {54489, 234291}, {43934, 44986}, {11260, 968186}, {248987, 707178}, {355162, 798511}, {661962, 781083}, {149228, 412762}, {71084, 953153}, {44890, 655659}, {708781, 956341}, {251847, 707658}, {650743, 932826}, {561965, 814428}, {697026, 932724}, {583473, 919161}, {463638, 951519}, {769086, 785893}, {17912, 923570}, {423089, 653531}, {317269, 395886}, {412117, 701471}, {465312, 520002}, {168739, 770178}, {624091, 814316}, {143729, 249836}, {699196, 879379}, {585322, 989087}, {501009, 949840}, {424092, 580498}, {282845, 345477}, {453883, 926476}, {392148, 878695}, {471772, 771547}, {339375, 590100}, {110499, 619323}, {8713, 291093}, {268241, 283247}, {160815, 621452}, {168922, 810532}, {355051, 377247}, {10461, 488835}, {220598, 261326}, {403537, 438947}, {221492, 640708}, {114702, 926457}, {166567, 477230}, {856127, 882961}, {218411, 256327}, {184364, 909088}, {130802, 828793}, {312028, 811716}, {294638, 839683}, {269329, 343517}, {167968, 391811}, {25351, 369583}, {210660, 454598}, {166834, 576380}, {296440, 873280}, {660142, 822072}, {33441, 778393}, {456500, 955635}, {59220, 954158}, {306295, 429913}, {110402, 448322}, {44523, 88192}, {231386, 353197}, {120940, 902781}, {348758, 597599}, {329467, 664450}, {208411, 890114}, {230238, 516885}, {434113, 602358}, {349759, 419831}, {10689, 308144}, {94526, 180723}, {435280, 986655}, {611999, 690154}, {75208, 395348}, {403243, 489260}, {498884, 611075}, {487209, 863242}, {13900, 873774}, {656706, 782943}, {53478, 586952}, {226216, 723114}, {554799, 922759}, {467777, 689913}, {80630, 147482}, {277803, 506346}, {532240, 976029}, {206622, 761192}, {148277, 985819}, {10879, 807349}, {952227, 971268}, {172074, 919866}, {239230, 384499}, {607687, 984661}, {4405, 264532}, {41071, 437502}, {432603, 661142}, {144398, 907360}, {139605, 360037}, {943191, 997317}, {12894, 171584}, {382477, 800157}, {452077, 518175}, {208007, 398880}, {375250, 489928}, {384503, 726837}, {278181, 628759}, {114470, 635575}, {382297, 733713}, {156559, 874172}, {507016, 815520}, {164461, 532215}, {17332, 536971}, {418721, 911117}, {11497, 14032}};
 
 
     private static final int expectedOne = 2;
@@ -93,74 +93,46 @@ public class T7 {
                 for (int j = 0; j < rooms.size(); j++) {
                     System.out.println("Searching Room Intervals for Slot #" + j);
                     System.out.println("\t For new interval = [" + starti + ", " + endi + "]");
+
                     int[] roomIntervals = rooms.get(j);
-//                    boolean overlap = false;
                     for (int x = 0; x < roomIntervals.length; x += 2) {
 
                         int roomStart = roomIntervals[x], roomEnd = roomIntervals[x + 1];
 
                         System.out.println("\t\tRooms Length = " + roomIntervals.length + "\t X=" + x);
                         System.out.println("\t\tCurrent Rooms Existing Intervals = " + Arrays.toString(roomIntervals));
-                        System.out.println("\t\t\tROOM INTERVAL LENGTH - X = " + (roomIntervals.length-x));
+                        System.out.println("\t\t\tROOM INTERVAL LENGTH - X = " + (roomIntervals.length - x));
 
 
                         // New Meeting Interval Starts/Ends Before Current Meeting
-                        // Add time intervals to current room
-                        // [[9,14], [5,6], [3,5], [12,19]]
-                        //  [[0, 30], [5, 10], [15, 20]]
-                        //  [[0, 30], [5, 10], [15, 20], [10, 15]]
                         if (starti >= roomEnd || endi <= roomStart) {
                             System.out.println("\t\t\tNEW TIME INTERVAL FITS CURRENT MEETING TIMES");
-//                            System.out.println("\t\t\tOVERLAP = " + overlap);
-                            if(roomIntervals.length-x == 2) {
+
+                            // Validate all intervals have been checked, and add new intervals.
+                            if (roomIntervals.length - x == 2) {
+                                // Create new int array to hold the additional times
                                 int[] newIntervals = new int[roomIntervals.length + 2];
+                                // Copy old interval list over to new list
                                 System.arraycopy(roomIntervals, 0, newIntervals, 0, roomIntervals.length);
+                                // Set the new meeting interval values in the last 2 indexes of the new array
                                 newIntervals[roomIntervals.length] = starti;
                                 newIntervals[roomIntervals.length + 1] = endi;
-                                System.out.println("\t\t\t Adding to Room Intervals = " + Arrays.toString(newIntervals) + "\n");
+                                // Update the current room with the new time intervals array
                                 rooms.set(j, newIntervals);
+                                // Update flag
                                 intervalAdded = true;
+
+                                System.out.println("\t\t\t Adding to Room Intervals = " + Arrays.toString(newIntervals) + "\n");
                             }
-                        }
-                        else {
-//                            overlap = true;
-//                            System.out.println("\t\t\tOVERLAP = " + overlap);
-//                            System.out.println("\t\t\t\tBREAKING FROM ROOM INTERVAL SEARCH!!!");
+                        } else
+                            // Current meeting interval time has an overlap; no need to process remaining time intervals.
                             break;
-                        }
 
-//                        System.out.println("\t\t\tOVERLAP = " + overlap);
-//                        System.out.println("\t\t\t\tADD NEW INTERVAL CHECK = " + (!overlap && roomIntervals.length-x == 2));
-
-//                        if(!overlap) {
-//                            if(roomIntervals.length-x == 2) {
-//                                int[] newIntervals = new int[roomIntervals.length + 2];
-//                                System.arraycopy(roomIntervals, 0, newIntervals, 0, roomIntervals.length);
-//                                newIntervals[roomIntervals.length] = starti;
-//                                newIntervals[roomIntervals.length + 1] = endi;
-//                                System.out.println("\t\t\t Adding to Room Intervals = " + Arrays.toString(newIntervals) + "\n");
-//                                rooms.set(j, newIntervals);
-//                                intervalAdded = true;
-//                            }
-//                        }
-//                        if (starti >= roomEnd || endi <= roomStart) {
-//                            if(roomIntervals.length-x == 2) {
-//                                int[] newIntervals = new int[roomIntervals.length + 2];
-//                                System.arraycopy(roomIntervals, 0, newIntervals, 0, roomIntervals.length);
-//                                newIntervals[roomIntervals.length] = starti;
-//                                newIntervals[roomIntervals.length + 1] = endi;
-//                                System.out.println("\t\t\t Adding to Room Intervals = " + Arrays.toString(newIntervals) + "\n");
-//                                rooms.set(j, newIntervals);
-//                                intervalAdded = true;
-//                            } else {
-//                                System.out.println("\t\t\t\tBREAKING FROM ROOM INTERVAL LOOP.");
-//                                break;
-//                            }
-//                        }
                     }
 
                 }
 
+                // New meeting overlapped with existing times; adding a new room to the list.
                 if (!intervalAdded) {
                     rooms.add(new int[]{starti, endi});
                     System.out.println("\t\t\t\tADDED NEW ROOM");

@@ -19,10 +19,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class QueueTests {
 
-    Queue priorityQueue = new PriorityQueue();
-    Queue linkedListQueue = new LinkedList();
-    Queue blockingQueue = new PriorityBlockingQueue();
-
     @Test
     public void tempQueueTest() {
         Queue<String> pq = new PriorityQueue<>();

@@ -1,4 +1,4 @@
-package com.bits.pieces.topics.leetCode;
+package com.bits.pieces.practice.problems.leet;
 
 import com.bits.pieces.topics.leetcode.SubTreeOfATree;
 import com.bits.pieces.topics.leetcode.TreeNode;

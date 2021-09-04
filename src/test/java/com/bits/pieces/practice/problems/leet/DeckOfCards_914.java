@@ -1,4 +1,4 @@
-package com.bits.pieces.topics.leetCode;
+package com.bits.pieces.practice.problems.leet;
 
 import org.junit.Test;
 

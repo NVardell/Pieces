@@ -1,5 +1,8 @@
-package com.bits.pieces.practice.structures.trees;
+package com.bits.pieces.topics.structures.trees;
 
+import com.bits.pieces.practice.structures.trees.CountComparator;
+import com.bits.pieces.practice.structures.trees.Song;
+import com.bits.pieces.practice.structures.trees.TitleComparator;
 import org.junit.Test;
 
 import java.util.Map;

@@ -1,5 +1,6 @@
-package com.bits.pieces.practice.structures.trees;
+package com.bits.pieces.topics.structures.trees;
 
+import com.bits.pieces.practice.structures.trees.SongComparator;
 import org.junit.Test;
 
 import java.util.Set;

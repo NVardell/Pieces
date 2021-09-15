@@ -1,4 +1,4 @@
-package com.bits.pieces.practice.problems.leet;
+package com.bits.pieces.topics.interviews;
 
 import org.junit.Test;
 
@@ -9,12 +9,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * TODO - Add Class Definition
+ * Sample Amazon Interview Question - From Sebs
  *
  * @author Nate Vardell
  * @since 8/24/2019
  */
-public class TwoSum_Amazon {
+public class Amazon {
     static int[] twoSum(int[] nums, int target) {
 
         if(nums == null || nums.length < 2)
@@ -22,7 +22,6 @@ public class TwoSum_Amazon {
 
         // Index pair to return
         int[] indexPair = null;
-
 
         // Temp Compliment Value
         int compliment;

@@ -1,4 +1,4 @@
-package com.bits.pieces.practice.generics;
+package com.bits.pieces.topics;
 
 import org.junit.Test;
 

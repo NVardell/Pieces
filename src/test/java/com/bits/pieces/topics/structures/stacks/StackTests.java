@@ -1,4 +1,4 @@
-package com.bits.pieces.practice.structures.stacks;
+package com.bits.pieces.topics.structures.stacks;
 
 import org.junit.Test;
 

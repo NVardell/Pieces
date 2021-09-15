@@ -1,4 +1,4 @@
-package com.bits.pieces.topics.streams;
+package com.bits.pieces.topics.structures.streams;
 
 import com.bits.pieces.app.model.Person;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.bits.pieces.practice.structures;
+package com.bits.pieces.topics.temp;
 
 
 //    Examples:

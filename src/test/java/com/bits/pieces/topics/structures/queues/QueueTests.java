@@ -1,4 +1,4 @@
-package com.bits.pieces.practice.structures.queues;
+package com.bits.pieces.topics.structures.queues;
 
 import org.junit.Test;
 

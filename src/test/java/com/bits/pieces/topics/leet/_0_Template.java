@@ -6,19 +6,19 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * NAME -
- * TOPICS -
- * COMPLEX -
- * URL -
+ * NAME - 
+ * TOPICS - 
+ * COMPLEX - 
+ * URL - 
  *
  * PROBLEM
- *      -
+ *      - 
  *
  * NOTES
- *      -
+ *      - 
  *
  * CONSTRAINTS
- *      -
+ *      - 
  *
  * EXAMPLE #1               | EXAMPLE #2                 | EXAMPLE #3
  *                          |                            |

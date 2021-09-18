@@ -1,6 +1,5 @@
 package com.bits.pieces.topics.leet;
 
-import jdk.internal.icu.text.UnicodeSet;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -20,9 +20,10 @@ import static org.hamcrest.core.Is.is;
  * CONSTRAINTS
  *      - 
  *
- * EXAMPLE #1               | EXAMPLE #2                 | EXAMPLE #3
- *                          |                            |
- *                          |                            |
+ * EXAMPLE #1
+ *      In ~ 
+ *      Out ~ 
+ *      Note ~ 
  *
  * @author NV
  * @since ${DATE}

@@ -1,10 +1,12 @@
 package com.bits.pieces.topics.leet;
 
+import jdk.internal.icu.text.UnicodeSet;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -34,70 +36,70 @@ import static org.hamcrest.core.Is.is;
 public class _387_FirstUniChar {
 
     Set<Character> set;
+    Stack<Character> uniStack;
+    int[] seats;
 
     @Before
     public void init() {
         set = new HashSet<>();
+        uniStack = new Stack<>();
     }
-
 
     @Test
     public void test_example_1() {
-        assertThat(firstUniqChar("leetcode"), is(0));
+        assertThat(firstUniqChar("l"), is(0));
     }
 
     @Test
     public void test_example_2() {
-        assertThat(firstUniqChar("loveleetcode"), is(2));
+        assertThat(firstUniqChar("leetcode"), is(0));
     }
 
     @Test
     public void test_example_3() {
-        assertThat(firstUniqChar("aabb"), is(-1));
+        assertThat(firstUniqChar("loveleetcode"), is(2));
     }
 
     @Test
     public void test_example_4() {
-        assertThat(firstUniqChar("aabbcdc"), is(5));
+        assertThat(firstUniqChar("aabb"), is(-1));
     }
 
     @Test
     public void test_example_5() {
-        assertThat(firstUniqChar("abcdcba"), is(3));
+        assertThat(firstUniqChar("aabbcdc"), is(5));
     }
 
     @Test
     public void test_example_6() {
+        assertThat(firstUniqChar("abcdcba"), is(3));
+    }
+
+    @Test
+    public void test_example_7() {
         assertThat(firstUniqChar("abcd"), is(0));
     }
 
     public int firstUniqChar(String s) {
-        int result = -1, length = s.length();
-        char uni;
+        int length = s.length();
 
         if (length < 1 || length > 100000)
-            return result;
+            return -1;
 
-
-        uni = s.charAt(0);
-        set.add(uni);
-        result = s.indexOf(uni);
-
-        for(int i=1; i<length; i++) {
+        for (int i = 1; i < length; i++) {
             char c = s.charAt(i);
 
-            if(set.contains(c)) {   // 1. NOT Unique - Already in set
-                if (uni == c)
-                    uni = ' ';
-            } else {                // 2. MAYBE Unique - Add to set
+            // 1. Not Unique - In Set & Uni is NOT Uni
+            if (set.contains(c) && uniStack.peek() == c) {
+                System.out.println("CONTAINS UNI & TOP OF STACK");
+                System.out.println("\tPOPPED - " + uniStack.pop());
+            } else {
                 set.add(c);
-                uni = c;
-                result = i;
+                uniStack.push(c);
             }
-
         }
 
-
-        return result;
+        return 0;
     }
+
 }

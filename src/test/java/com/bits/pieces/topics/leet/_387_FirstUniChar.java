@@ -3,7 +3,9 @@ package com.bits.pieces.topics.leet;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -29,11 +31,21 @@ import static org.hamcrest.core.Is.is;
  * Input: s = "leetcode"   | Input: s = "loveleetcode"  | Input: s = "aabb"
  * Output: 0               | Output: 2                  | Output: -1
  *
+ * RESULTS #1
+ * Runtime: 23 ms, faster than 44.83% of Java online submissions for First Unique Character in a String.
+ * Memory Usage: 39.6 MB, less than 60.12% of Java online submissions for First Unique Character in a String.
+ *
+ * RESULTS #2
+ * Runtime: 23 ms, faster than 44.83% of Java online submissions for First Unique Character in a String.
+ * Memory Usage: 39.4 MB, less than 70.49% of Java online submissions for First Unique Character in a String.
+ *
+ *
  * @author NV
  * @since ${DATE}
  */
 public class _387_FirstUniChar {
 
+    private static Map<Character, Integer> m;
     Set<Character> set;
     Stack<Character> uniStack;
     int[] seats;
@@ -80,25 +92,16 @@ public class _387_FirstUniChar {
     }
 
     public int firstUniqChar(String s) {
-        int length = s.length();
+        m = new HashMap<>();
 
-        if (length < 1 || length > 100000)
-            return -1;
+        for(Character c : s.toCharArray())
+            m.put(c,m.getOrDefault(c,0)+1);
 
-        for (int i = 1; i < length; i++) {
-            char c = s.charAt(i);
+        for(Character c : s.toCharArray())
+            if(m.get(c)==1)
+                return(s.indexOf(c));
 
-            // 1. Not Unique - In Set & Uni is NOT Uni
-            if (set.contains(c) && uniStack.peek() == c) {
-                System.out.println("CONTAINS UNI & TOP OF STACK");
-                System.out.println("\tPOPPED - " + uniStack.pop());
-            } else {
-                set.add(c);
-                uniStack.push(c);
-            }
-        }
-
-        return 0;
+        return -1;
     }
 
 }

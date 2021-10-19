@@ -41,7 +41,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author NV
  * @since 9/4/2021
  */
-public class _572_SubtreeOfAnotherTree {
+public class _572_SubtreeOfATree {
 
     @Test
     public void tests() {

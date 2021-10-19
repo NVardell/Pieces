@@ -3,6 +3,7 @@ package com.bits.pieces.topics.structures.queues;
 import org.junit.Test;
 
 import java.util.AbstractMap;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -29,8 +30,12 @@ public class PriorityQueueTests {
 
     @Test
     public void priorityQueue_MapTest(){
-        Queue<Map.Entry<String, Integer>> mapPQ = new PriorityQueue<>(Map.Entry.comparingByValue());
+        Queue<Map.Entry<String, Integer>> mapPQ = new PriorityQueue<>(Map.Entry.comparingByValue(Comparator.reverseOrder()));
         mapPQ.add(new AbstractMap.SimpleEntry<>("A",5));
         assertThat(mapPQ.size(), is(1));
+
+        mapPQ.add(new AbstractMap.SimpleEntry<>("a", 9));
+        assert mapPQ.peek() != null;
+        assertThat(mapPQ.peek().getValue(), is(9));
     }
 }

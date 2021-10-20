@@ -15,10 +15,10 @@ public class _0_Playground {
 
     @Test
     public void tests() {
-        assertThat(solution(0), is(-1));
+        assertThat(solution(0), is(0));
     }
 
     public int solution(int x) {
-        return -1;
+        return x;
     }
 }

@@ -21,21 +21,26 @@ public class QueueTests {
     private static Queue<String> stringQueue;
 
     @Test
-    public void tempQueueTest() {
-        pq = new PriorityQueue<>();
-        pq.add("Awesome");
-        pq.add("Amazing");
-        assertThat(pq.poll(), is("Amazing"));
-        assertThat(pq.size(), is(1));
+    public void stringPriorityQueue_testAddAndPoll() {
+        stringQueue = new PriorityQueue<>();
 
-        Queue<String> llq = new LinkedList<>();
-        llq.add("Awesome");
-        llq.add("Amazing");
-        assertThat(llq.poll(), is("Awesome"));
-        llq.add("Amazing2");
-        System.out.println(pq);
-        System.out.println(llq);
-        System.out.println(llq.element());
-        assertThat(llq.isEmpty(), is(false));
+        stringQueue.add("Awesome");
+        stringQueue.add("Amazing");
+
+        assertThat(stringQueue.poll(), is("Amazing"));
+        assertThat(stringQueue.size(), is(1));
+    }
+
+    @Test
+    public void stringQueueLinkedList_testAddAndPoll() {
+        stringQueue = new LinkedList<>();
+
+        stringQueue.add("Awesome");
+        stringQueue.add("Amazing");
+        assertThat(stringQueue.poll(), is("Awesome"));
+
+        stringQueue.add("Amazing2");
+        assertThat(stringQueue.isEmpty(), is(false));
+        assertThat(stringQueue.size(), is(2));
     }
 }

@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class QueueTests {
 
-    private static Queue<String> pq;
+    private static Queue<String> stringQueue;
 
     @Test
     public void tempQueueTest() {

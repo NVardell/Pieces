@@ -1,4 +1,4 @@
-package com.bits.pieces.topics.interviews;
+package com.bits.pieces.topics.interviews._2021;
 
 import org.junit.Test;
 
@@ -12,16 +12,61 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 /**
- * 2021 ~ Q2
+ * NAME - Amazon Customer Reviews
  *
- * @author Nate Vardell
- * @since 8/24/2019
+ * DETAILS
+ *      - Amazon is building a way to help customers search reviews quicker by providing real-time suggestions
+ *      to search terms when the customer starts typing. When given a minimum of two characters into the search
+ *      field the system will suggest at most three keywords from the review word repository. As the customer
+ *      continues to type in the reviews search bar the relevant keyword suggestions will update automatically.
+ *
+ * PROBLEM
+ *      - Write an algorithm that will output a max of three keyword suggestions after each character is typed.
+ *
+ * NOTES
+ *      - If there are more than three acceptable keywords, return the keywords that are first in alphabetical order.
+ *      - Only return keyword suggestions after the customer has entered two characters.
+ *      - Keyword suggestions must start with the characters already typed.
+ *      - Both the repository and the customerQuery should be compared in a case-insensitive way.
+ *
+ * CONSTRAINTS
+ *      - If an output is not possible, return an empty array (O).
+ *
+ * INPUTS / OUTPUTS
+ *      - IN
+ *          + repository
+ *              - List of unique strings
+ *              - Represents the various keywords from the Amazon review comment section.
+ *          + customerQuery
+ *              - String
+ *              - Represents the full search query of the customer.
+ *      - OUT
+ *          + List of a List of Strings
+ *              - All Lowercase Strings
+ *              - Each list represents the keyword suggestions made by the system as the customer types each character.
+ *              - Assume the customer types characters in order without deleting or removing any characters.
+ *
+ * EXAMPLE #1
+ *      In ~ repository = [ "mobile", "mouse", "moneypot", "monitor", "mousepad"
+ *           customerQuery = "mouse"
+ *      Out ~ ["mobile", "moneypot", "monitor"]
+ *            ["mouse", "mousepad"]
+ *            ["mouse", "mousepad"]
+ *            ["mouse", "mousepad"]
+ *      Note ~ The chain of words that will generate in the search box will be: mo, mou, mous, mouse
+ *          And each line from output shows the suggestion of "mo", "mou", "mous", "mouse", respectively
+ *          in each line. For the keyword suggestions made by the system that are generated for 'mo', the
+ *          matches that will be generated are: ["mobile", "mouse", "moneypot", "monitor", "mousepad"]
+ *          Alphabetically, they will be reordered to: [ "mobile", "moneypot", "monitor", "mouse", "mousepad" ].
+ *          Thus the keyword suggestions made by the system are [ "mobile", "moneypot", "monitor"].
+ *
+ * @author NV
+ * @since 12/28/2021
  */
 public class Amazon_2021_1 {
 
@@ -64,7 +109,7 @@ public class Amazon_2021_1 {
     /**
      * HackerRank Generated Runner Class
      */
-    public class Solution {
+    public static class Solution {
         public static void main(String[] args) throws IOException {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
@@ -86,11 +131,9 @@ public class Amazon_2021_1 {
 
             result.stream()
                     .map(
-                            r -> r.stream()
-                                    .collect(joining(" "))
+                            r -> String.join(" ", r)
                     )
-                    .map(r -> r + "\n")
-                    .collect(toList())
+                    .map(r -> r + "\n").toList()
                     .forEach(e -> {
                         try {
                             bufferedWriter.write(e);

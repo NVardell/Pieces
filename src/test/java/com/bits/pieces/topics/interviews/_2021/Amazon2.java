@@ -73,7 +73,7 @@ import static org.hamcrest.Matchers.is;
  * @author NV
  * @since 12/28/2021
  */
-public class Amazon_2021_2 {
+public class Amazon2 {
     private static int shoppingCartChallenge(List<String> codeList, List<String> shoppingCart) {
         return 0;
     }

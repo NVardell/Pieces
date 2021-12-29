@@ -68,7 +68,7 @@ import static org.hamcrest.Matchers.is;
  * @author NV
  * @since 12/28/2021
  */
-public class Amazon_2021_1 {
+public class Amazon1 {
 
     public static List<List<String>> searchSuggestions(List<String> repository, String customerQuery) {
 

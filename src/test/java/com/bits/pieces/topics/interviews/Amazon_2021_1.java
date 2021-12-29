@@ -41,12 +41,16 @@ public class Amazon_2021_1 {
                     .filter(suggestion -> suggestion.startsWith(customerQueryChar))
                     .sorted()
                     .limit(3)
-                    .collect(Collectors.toList());
+                    .collect(toList());
 
+            // Add new list of repo search suggestions to primary list
             searchSuggestions.add(repoSuggestionsList);
         }
-//        searchSuggestions.remove(0);
-        System.out.println(searchSuggestions);
+
+        // Remove initial duplicate entry - NTS: Fixed all test cases after adding. Don't ask.
+        searchSuggestions.remove(0);
+
+        // Return List of Search Suggestions
         return searchSuggestions;
     }
 

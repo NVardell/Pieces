@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
+import java.util.Objects;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -128,7 +129,7 @@ public class Amazon2 {
             String currentCode = tempCodeGroup.peek();
 
             // If anything has already been used, use its value instead
-            if(anythingIsSet && currentCode.equals(ANYTHING))
+            if(anythingIsSet && Objects.equals(currentCode, ANYTHING))
                 currentCode = anything;
 
             // Check if Current Code is the first in its group
@@ -137,7 +138,7 @@ public class Amazon2 {
                 if(cartItem.equals(currentCode)) {
                     tempCodeGroup.pop();
                     isFirst = false;
-                } else if(currentCode.equals(ANYTHING)) {
+                } else if(Objects.equals(currentCode, ANYTHING)) {
                     tempCodeGroup.pop();
                     anything = cartItem;
                     anythingIsSet = true;
@@ -147,7 +148,7 @@ public class Amazon2 {
                 // Check if group code & shopping cart items match
                 if(cartItem.equals(currentCode)) {
                     tempCodeGroup.pop();
-                } else if(currentCode.equals(ANYTHING)) {
+                } else if(Objects.equals(currentCode, ANYTHING)) {
                     tempCodeGroup.pop();
                     anything = cartItem;
                     anythingIsSet = true;

@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.is;
  * @author Nate Vardell
  * @since 8/24/2019
  */
-public class Amazon2 {
+public class Amazon_2021_2 {
     private static int[] twoSum(int[] nums, int target) {
         return null;
     }

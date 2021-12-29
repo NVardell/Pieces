@@ -83,8 +83,14 @@ public class Amazon2 {
 
     private static int shoppingCartChallenge(List<String> codeList, List<String> shoppingCart) {
 
-        boolean isFirst = true;
-        int totalCodes = 0, codeGroup = 0;
+        System.out.println("CODE LIST = " + codeList);
+        System.out.println("SHOPPING CART = " + shoppingCart);
+
+        boolean isFirst = true, anythingIsSet = false;
+        int totalCodes = 0, codeGroup = 0, totalGroups = 0;
+        String anything = ANYTHING;
+
+        Deque<String> tempCodeGroup = new ArrayDeque<>();
         Deque<String> currentCodeGroup = new ArrayDeque<>();
         List<List<String>> codeListGroups = new ArrayList<>();
 
@@ -101,33 +107,73 @@ public class Amazon2 {
 
             // Add list size to total codes counter
             totalCodes += codesGroup.size();
+
+            // Increment Total Groups Counter
+            totalGroups++;
         }
 
         // More Codes than items in cart = Losing
-        if(totalCodes > shoppingCart.size())
+        if(totalCodes > shoppingCart.size() || shoppingCart.isEmpty())
             return LOSER;
 
-
-        // Queue Initial Code Group
-        currentCodeGroup.addAll(codeListGroups.get(0));
 
         // Iterate over items in shopping cart
         for (String cartItem : shoppingCart) {
 
+            System.out.println("\n\nCART ITEM = " + cartItem);
+            if(tempCodeGroup.isEmpty() && codeGroup == totalGroups) {
+                System.out.println("\tReturning Winner.");
+                return WINNER;
+            } else if(tempCodeGroup.isEmpty()) {
+                System.out.println("\tCurrent Code Deque is empty, adding next group! #" + codeGroup + "/" + totalGroups);
+                tempCodeGroup.addAll(codeListGroups.get(codeGroup));
+//                System.out.println(tempCodeGroup);
+                currentCodeGroup.addAll(codeListGroups.get(codeGroup++));;
+                isFirst=true;
+                System.out.println("\tCurrent Code Deque is empty, adding next group! #" + codeGroup + "/" + totalGroups);
+            }
+
+            String currentCode = tempCodeGroup.peek();
+            System.out.println("\tCURRENT CODE = " + currentCode);
+
+            // If anything has already been used, use its value instead
+            if(anythingIsSet && currentCode.equals(ANYTHING))
+                currentCode = anything;
+
             // Check if Current Code is the first in its group
             if(isFirst) {
                 // Check if group code & shopping cart items match
-                if(cartItem.equals(currentCodeGroup.peek())) {
-                    currentCodeGroup.pop();
+                if(cartItem.equals(currentCode)) {
+                    System.out.println("\t\tIS FIRST - Cart Item = Current Code.");
+                    tempCodeGroup.pop();
+                    isFirst = false;
+                } else if(currentCode.equals(ANYTHING)) {
+                    System.out.println("\t\tIS FIRST - Current Code = Anything.");
+                    tempCodeGroup.pop();
+                    anything = cartItem;
+                    anythingIsSet = true;
+                    isFirst = false;
                 }
-
-                isFirst = false;
             } else {
-
+                // Check if group code & shopping cart items match
+                if(cartItem.equals(currentCode)) {
+                    System.out.println("\t\tCart Item = Current Code.");
+                    tempCodeGroup.pop();
+                } else if(currentCode.equals(ANYTHING)) {
+                    System.out.println("\t\tCurrent Code = Anything");
+                    tempCodeGroup.pop();
+                    anything = cartItem;
+                    anythingIsSet = true;
+                } else {
+                    System.out.println("Resetting Temp Code Group.\n\tTemp = " + tempCodeGroup.toString() + "\n\tCurrentCodeGroup = " + currentCodeGroup.toString());
+                    tempCodeGroup.clear();
+                    tempCodeGroup.addAll(currentCodeGroup);
+                    System.out.println("Resetting Temp Code Group.\n\tTemp = " + tempCodeGroup + "\n\tCurrentCodeGroup = " + currentCodeGroup);
+                }
             }
         }
 
-        return LOSER;
+        return (tempCodeGroup.isEmpty() && codeGroup == totalGroups) ? WINNER : LOSER;
     }
 
     @Test
@@ -158,7 +204,7 @@ public class Amazon2 {
     @Test
     public void testShoppingCartChallenge_exampleThree() {
         List<String> inputCodeList = List.of("apple apple", "banana anything banana");
-        List<String> inputShoppingCart = List.of("apple", "banana", "apple", "banana", "orange", "banana");
+        List<String> inputShoppingCart = List.of("apple", "banana", "apple", "banana", "apple", "banana", "orange", "banana");
         assertThat(shoppingCartChallenge(inputCodeList, inputShoppingCart), is(LOSER));
     }
 

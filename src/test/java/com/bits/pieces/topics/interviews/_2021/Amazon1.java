@@ -93,6 +93,7 @@ public class Amazon1 {
         }
 
         // Remove initial duplicate entry - NTS: Fixed all test cases after adding. Don't ask.
+        // Actually read the words above about starting with first 2 chars; aka, starting for loop above @ 1 should fix it.
         searchSuggestions.remove(0);
 
         // Return List of Search Suggestions

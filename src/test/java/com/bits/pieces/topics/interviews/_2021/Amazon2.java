@@ -80,6 +80,47 @@ public class Amazon2 {
 
     @Test
     public void testShoppingCartChallenge_withEmptyLists() {
-        assertThat(shoppingCartChallenge(Collections.emptyList(), Collections.emptyList()), is(0));
+        assertThat(shoppingCartChallenge(Collections.emptyList(), Collections.emptyList()), is(LOSER));
+    }
+
+    @Test
+    public void testShoppingCartChallenge_withEmptyCodeList() {
+        assertThat(shoppingCartChallenge(Collections.emptyList(), List.of("Fruity")), is(WINNER));
+    }
+
+    @Test
+    public void testShoppingCartChallenge_exampleOne() {
+        List<String> inputCodeList = List.of("apple apple", "banana anything banana");
+        List<String> inputShoppingCart = List.of("orange", "apple", "apple", "banana", "orange", "banana");
+
+        assertThat(shoppingCartChallenge(inputCodeList, inputShoppingCart), is(WINNER));
+    }
+
+    @Test
+    public void testShoppingCartChallenge_exampleTwo() {
+        List<String> inputCodeList = List.of("apple apple", "banana anything banana");
+        List<String> inputShoppingCart = List.of("banana", "orange", "banana", "apple", "apple");
+        assertThat(shoppingCartChallenge(inputCodeList, inputShoppingCart), is(LOSER));
+    }
+
+    @Test
+    public void testShoppingCartChallenge_exampleThree() {
+        List<String> inputCodeList = List.of("apple apple", "banana anything banana");
+        List<String> inputShoppingCart = List.of("apple", "banana", "apple", "banana", "orange", "banana");
+        assertThat(shoppingCartChallenge(inputCodeList, inputShoppingCart), is(LOSER));
+    }
+
+    @Test
+    public void testShoppingCartChallenge_exampleFour() {
+        List<String> inputCodeList = List.of("apple apple", "apple apple banana");
+        List<String> inputShoppingCart = List.of("apple", "apple", "apple", "banana");
+        assertThat(shoppingCartChallenge(inputCodeList, inputShoppingCart), is(LOSER));
+    }
+
+    @Test
+    public void testShoppingCartChallenge_exampleFive() {
+        List<String> inputCodeList = List.of("apple apple", "banana anything banana");
+        List<String> inputShoppingCart = List.of("apple", "apple", "orange", "orange", "banana", "apple", "banana", "banana");
+        assertThat(shoppingCartChallenge(inputCodeList, inputShoppingCart), is(WINNER));
     }
 }

@@ -74,6 +74,9 @@ import static org.hamcrest.Matchers.is;
  * @since 12/28/2021
  */
 public class Amazon2 {
+
+    private static final int WINNER = 1, LOSER = 0;
+
     private static int shoppingCartChallenge(List<String> codeList, List<String> shoppingCart) {
         return 0;
     }

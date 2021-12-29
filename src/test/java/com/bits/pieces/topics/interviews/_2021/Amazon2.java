@@ -2,7 +2,10 @@ package com.bits.pieces.topics.interviews._2021;
 
 import org.junit.Test;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -76,9 +79,55 @@ import static org.hamcrest.Matchers.is;
 public class Amazon2 {
 
     private static final int WINNER = 1, LOSER = 0;
+    private static final String ANYTHING = "anything";
 
     private static int shoppingCartChallenge(List<String> codeList, List<String> shoppingCart) {
-        return 0;
+
+        boolean isFirst = true;
+        int totalCodes = 0, codeGroup = 0;
+        Deque<String> currentCodeGroup = new ArrayDeque<>();
+        List<List<String>> codeListGroups = new ArrayList<>();
+
+        // No codes = Winning
+        if(codeList.isEmpty() && !shoppingCart.isEmpty())
+            return WINNER;
+
+        // Create Code Groups from Code List
+        for (String codes : codeList) {
+
+            // Create New List of Codes, separating on spaces
+            List<String> codesGroup = List.of(codes.split(" "));
+            codeListGroups.add(codesGroup);
+
+            // Add list size to total codes counter
+            totalCodes += codesGroup.size();
+        }
+
+        // More Codes than items in cart = Losing
+        if(totalCodes > shoppingCart.size())
+            return LOSER;
+
+
+        // Queue Initial Code Group
+        currentCodeGroup.addAll(codeListGroups.get(0));
+
+        // Iterate over items in shopping cart
+        for (String cartItem : shoppingCart) {
+
+            // Check if Current Code is the first in its group
+            if(isFirst) {
+                // Check if group code & shopping cart items match
+                if(cartItem.equals(currentCodeGroup.peek())) {
+                    currentCodeGroup.pop();
+                }
+
+                isFirst = false;
+            } else {
+
+            }
+        }
+
+        return LOSER;
     }
 
     @Test

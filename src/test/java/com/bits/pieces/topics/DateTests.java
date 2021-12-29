@@ -17,7 +17,6 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 
 /**
  * Tests Cases for everything Date Related
- *
  * @author Nate Vardell
  * @since 7/3/2019
  */

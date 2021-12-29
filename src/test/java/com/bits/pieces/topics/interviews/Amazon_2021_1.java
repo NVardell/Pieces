@@ -23,12 +23,14 @@ import static org.hamcrest.Matchers.is;
  * @author Nate Vardell
  * @since 8/24/2019
  */
-public class Amazon_2021_11 {
+public class Amazon_2021_1 {
 
     public static List<List<String>> searchSuggestions(List<String> repository, String customerQuery) {
-        // Write your code here
+
+        // List of Search Suggestions to return
         List<List<String>> searchSuggestions = new ArrayList<>();
 
+        // Iterate over characters in customer search query
         for(int i = 0; i < customerQuery.length(); i++) {
             // Get character from query string
             String customerQueryChar = customerQuery.substring(0, i+1).toLowerCase();

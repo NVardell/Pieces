@@ -2,40 +2,140 @@ package com.bits.pieces.topics.interviews._2021;
 
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 /**
- * NAME -
- * TOPICS -
- * COMPLEX -
- * URL -
+ * NAME - Code Question 1
+ *
+ * DETAILS
+ *      - Amazon Web Services (AWS) offers learning opportunities for computer science
+ *      students in a series of courses. Upon completing a course, AWS awards the student
+ *      with an electronic learning badge. Before signing up for further courses, a student
+ *      assigns each badge a value based on interest:
+ *          • 1 means that the student is interested
+ *          • -1 means that the student is not interested
  *
  * PROBLEM
- *      -
- *
- * NOTES
- *      -
+ *      - Find a SubArray of maximum length such that the product of all the elements in
+ *      the SubArray is 1. A SubArray is a contiguous group of elements in an array.
  *
  * CONSTRAINTS
- *      -
+ *      - 2 ≤ n ≤ 2*10⁵
+ *      - badges[i] is 1 or -1
+ *      - There will be at least one non-empty SubArray that satisfies the given condition.
+ *
+ * INPUTS / OUTPUTS
+ *      - IN
+ *          + badges
+ *              - Int Array of size n
+ *              - Represents the student's interests in each of the subjects.
+ *              - Either 1 or -1
+ *      - OUT
+ *          + Integer
+ *              - Maximum length SubArray with a product of 1
  *
  * EXAMPLE #1
- *      In ~
- *      Out ~
- *      Note ~
+ *      In ~ badges = [1, -1, -1, 1, 1, -1]
+ *      Out ~ 5
+ *      Note ~ These are a few of the SubArrays whose product is equal to 1:
+ *              • Beginning & ending indices (O, 0), length of the SubArray is 1
+ *              • Indices (O, 4), length of the SubArray is 5
+ *              • Indices (1, 4), length of the SubArray is 4
+ *              • Indices (1, 2), length of the SubArray is 2
+ *           The maximum SubArray length whose product is equal to 1 is length 5. Return 5.
+ *
+ * EXAMPLE #2
+ *      In ~ badges = [1, -1, -1, -1, 1, 1]
+ *      Out ~ 4
+ *      Note ~ These are a few of the SubArrays whose product is equal to 1:
+ *              • SubArray with indices from (0, 2), length of the SubArray is 3.
+ *              • SubArray with indices from (I, 2), length of the SubArray is 2.
+ *              • SubArray with indices from (2, 5), length of the SubArray is 4.
+ *              • SubArray with indices from (4, 5), length of the SubArray is 2.
+ *          The maximum SubArray length whose product is equal to 1 is length 4.
+ *
+ * EXAMPLE #3
+ *      In ~ badges = [-1, 1, -1, 1]
+ *      Out ~ 4
+ *      Note ~ Here, the optimal solution is to choose the entire array as the SubArray because its product is 1.
  *
  * @author NV
  * @since 12/30/2021
  */
 public class Amazon3 {
 
-    @Test
-    public void tests() {
-        assertThat(solution(0), is(-1));
+    private static int maxSubArrayLength(List<Integer> badges) {
+        int maxLength = 0;
+        int badgesListSize = badges.size();
+
+        for(int i = 0; i < badgesListSize; i++) {
+            int subArraySum = badges.get(i);
+
+            for(int x = i+1; x < badgesListSize; x++) {
+                subArraySum *= badges.get(x);
+
+                if(subArraySum == 1) {
+                    maxLength = Math.max(maxLength, x - i + 1);
+                }
+            }
+        }
+
+        return maxLength;
     }
 
-    public int solution(int x) {
-        return -1;
+    @Test
+    public void testSolution_exampleOne() {
+        assertThat(maxSubArrayLength(List.of(1, -1, -1, 1, 1, -1)), is(5));
+    }
+
+    @Test
+    public void testSolution_exampleTwo() {
+        assertThat(maxSubArrayLength(List.of(1, -1, -1, -1, 1, 1)), is(4));
+    }
+
+    @Test
+    public void testSolution_exampleThree() {
+        assertThat(maxSubArrayLength(List.of(-1, 1, -1, 1)), is(4));
+    }
+
+    /**
+     * HackerRank ~ Solution Runner
+     */
+    public static class Solution {
+        public static void main(String[] args) throws IOException {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+            int badgesCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+            List<Integer> badges = IntStream.range(0, badgesCount).mapToObj(i -> {
+                        try {
+                            return bufferedReader.readLine().replaceAll("\\s+$", "");
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    })
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .collect(toList());
+
+            int result = Amazon3.maxSubArrayLength(badges);
+
+            bufferedWriter.write(String.valueOf(result));
+            bufferedWriter.newLine();
+
+            bufferedReader.close();
+            bufferedWriter.close();
+        }
     }
 }

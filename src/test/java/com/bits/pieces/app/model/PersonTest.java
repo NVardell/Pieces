@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * TODO - Add Class Definition
+ * Test Cases for Person Model class
  *
  * @author Nate Vardell
  * @since 6/29/2019

@@ -73,7 +73,7 @@ public class HomeControllerTest {
 
     /**
      * Full Spring app context is started (without server) using Mock MVC
-     * @throws Exception
+     * @throws Exception ~ General Exception
      */
     @Test
     public void healthEndpoint_MVC() throws Exception {

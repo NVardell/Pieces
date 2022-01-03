@@ -42,6 +42,7 @@ public class PersonTest {
         employeeStream = people.stream()
                 .filter(p -> p.getDigits() > 18)
                 .map(person -> new Employee(person));
+        assertThat(employeeStream.count(), is(2));
 
         // Another way...
         // Since the lambda that is passed to the map method just consumes the parameter without doing anything else with it,
@@ -50,6 +51,7 @@ public class PersonTest {
                 .filter(p -> p.getDigits() > 18)
                 .map(Employee::new);
         System.out.println(employeeStream.toString());
+        assertThat(employeeStream.count(), is(4));
     }
 
     @Test

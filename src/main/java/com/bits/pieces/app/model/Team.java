@@ -1,17 +1,21 @@
 package com.bits.pieces.app.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Optional;
 
 /**
- * TODO - Add Class Definition
+ * Team Model Class
  *
  * @author Nate Vardell
  * @since 6/30/2019
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Team {
-    private final String name;
-    private final Optional<Person> teamMembers;
+    String name;
+    Optional<Person> teamMembers;
 }

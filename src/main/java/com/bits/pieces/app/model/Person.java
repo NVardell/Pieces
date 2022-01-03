@@ -4,16 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 /**
- * TODO - Add Class Definition
+ * Person Model Class
  *
  * @author Nate Vardell
  * @since 6/29/2019
  */
 @Data
-@Slf4j
+@Log
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class Person {
 
     @Override
     public int hashCode() {
-        log.warn("\n\n~~~~~ CALLING MY HASH FUNCTION ~~~~~\n\n");
+        log.warning("\\n\\n~~~~~ CALLING MY HASH FUNCTION ~~~~~\\n\\n");
         return digits;
     }
 

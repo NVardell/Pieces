@@ -2,10 +2,11 @@ package com.bits.pieces.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * TODO - Add Class Definition
+ * Employee Model Class
  *
  * @author Nate Vardell
  * @since 6/29/2019
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class Employee extends Person {
 
     Double money;

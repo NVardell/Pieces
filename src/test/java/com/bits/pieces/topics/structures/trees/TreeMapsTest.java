@@ -1,8 +1,8 @@
 package com.bits.pieces.topics.structures.trees;
 
-import com.bits.pieces.practice.structures.trees.CountComparator;
-import com.bits.pieces.practice.structures.trees.Song;
-import com.bits.pieces.practice.structures.trees.TitleComparator;
+import com.bits.pieces.app.comparator.CountCompare;
+import com.bits.pieces.app.comparator.TitleCompare;
+import com.bits.pieces.app.model.Song;
 import org.junit.Test;
 
 import java.util.Map;
@@ -31,7 +31,7 @@ public class TreeMapsTest {
 
     @Test
     public void whenUsingCustomCompareClasses_treeIsSortedCorrectlyByKey() {
-        Map<Song, String> songMapTitles = new TreeMap<>(new TitleComparator());
+        Map<Song, String> songMapTitles = new TreeMap<>(new TitleCompare());
         songMapTitles.put(new Song("Fire Song", 2), "Two");
         songMapTitles.put(new Song("Serious Song", 3), "Three");
         songMapTitles.put(new Song("Another Song", 1), "One");
@@ -39,7 +39,7 @@ public class TreeMapsTest {
         songMapTitles.forEach((key, value) -> System.out.println("Song Title = " + key + "\tSong Count = " + value));
 
         System.out.println("\n" + songMapTitles);
-        Map<Song, String> songMapCount = new TreeMap<>(new CountComparator());
+        Map<Song, String> songMapCount = new TreeMap<>(new CountCompare());
         songMapCount.put(new Song("Fire Song", 2), "Two");
         songMapCount.put(new Song("Serious Song", 1), "One");
         songMapCount.put(new Song("Another Song", 3), "Three");
@@ -47,11 +47,12 @@ public class TreeMapsTest {
         songMapCount.forEach((key, value) -> System.out.println("Song Title = " + key + "\tSong Count = " + value));
 
 
-        songMapTitles = new TreeMap<>(new TitleComparator());
+        songMapTitles = new TreeMap<>(new TitleCompare());
         songMapTitles.put(new Song("B", 2), "Two");
         songMapTitles.put(new Song("C", 3), "Three");
         songMapTitles.put(new Song("A", 1), "One");
 
         songMapTitles.forEach((key, value) -> System.out.println("Song Title = " + key + "\tSong Count = " + value));
+        assertThat(songMapTitles.size(), is(3));
     }
 }

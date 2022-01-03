@@ -1,11 +1,14 @@
 package com.bits.pieces.topics.leet;
 
+import com.bits.pieces.app.model.TreeNode;
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 /**
+ * STATUS - Solution Accepted.
  * URL - https://leetcode.com/problems/subtree-of-another-tree/
  *
  * PROBLEM
@@ -43,24 +46,92 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class _572_SubtreeOfATree {
 
+    TreeNode rootOne, rootTwo, rootThree, subRootOne, subRootTwo, subRootThree;
+
+    @Before
+    public void setup() {
+        rootOne = TreeNode.builder().val(3)
+                .left(TreeNode.builder().val(4)
+                        .left(TreeNode.builder().val(1).build())
+                        .right(TreeNode.builder().val(2).build())
+                        .build())
+                .right(TreeNode.builder().val(5).build())
+                .build();
+        subRootOne = TreeNode.builder().val(4)
+                .left(TreeNode.builder().val(1).build())
+                .right(TreeNode.builder().val(2).build())
+                .build();
+
+
+        rootTwo = TreeNode.builder().val(3)
+                .left(TreeNode.builder().val(4)
+                        .left(TreeNode.builder().val(1).build())
+                        .right(TreeNode.builder().val(2)
+                                .left(TreeNode.builder().val(0).build())
+                                .build())
+                        .build())
+                .right(TreeNode.builder().val(5).build())
+                .build();
+        subRootTwo = TreeNode.builder().val(4)
+                .left(TreeNode.builder().val(1).build())
+                .right(TreeNode.builder().val(2).build())
+                .build();
+
+        rootThree = TreeNode.builder().val(1)
+                .left(TreeNode.builder().val(1).build())
+                .build();
+        subRootThree = TreeNode.builder().val(1).build();
+    }
+
+
     @Test
-    public void tests() {
-        assertThat(solution(null, null), is(false));
+    public void givenNullTrees_assertFalse() {
+        assertThat(isSubTree(null, null), is(false));
     }
 
-    static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-        TreeNode(int x) { val = x; }
+    @Test
+    public void testSubTrees_1() {
+        assertThat(isSubTree(rootOne, subRootOne), is(true));
     }
 
-    public static boolean solution(TreeNode root, TreeNode subRoot) {
-        boolean result = false;
+    @Test
+    public void testSubTrees_2() {
+        assertThat(isSubTree(rootTwo, subRootTwo), is(false));
+    }
+    @Test
+    public void testSubTrees_3() {
+        assertThat(isSubTree(rootThree, subRootThree), is(true));
+    }
 
+    /**
+     * Evaluates tree nodes & returns true or false if the node is a subtree.
+     * @param root ~ Root Tree Node
+     * @param subRoot ~ Sub Root Tree Node
+     * @return boolean ~ True/False
+     */
+    public static boolean isSubTree(TreeNode root, TreeNode subRoot) {
+        return root != null
+                && (equals(root, subRoot)
+                    || traverse(root.left, subRoot)
+                    || traverse(root.right, subRoot)
+        );
+    }
 
+    public static boolean equals(TreeNode root, TreeNode subRoot) {
+        if(root == null && subRoot == null)
+            return true;
+        if(root == null || subRoot == null)
+            return false;
+        return root.val == subRoot.val
+                && equals(root.left, subRoot.left)
+                && equals(root.right, subRoot.right);
+    }
 
-
-        return result;
+    public static boolean traverse(TreeNode root, TreeNode subRoot) {
+        return root != null
+                && (equals(root, subRoot)
+                    || traverse(root.left, subRoot)
+                    || traverse(root.right, subRoot)
+        );
     }
 }

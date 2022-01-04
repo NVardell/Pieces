@@ -14,6 +14,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 /**
@@ -52,7 +53,7 @@ import static org.hamcrest.Matchers.is;
  *              - Assume the customer types characters in order without deleting or removing any characters.
  *
  * EXAMPLE #1
- *      In ~ repository = [ "mobile", "mouse", "moneypot", "monitor", "mousepad"
+ *      In ~ repository = [ "mobile", "mouse", "moneypot", "monitor", "mousepad" ]
  *           customerQuery = "mouse"
  *      Out ~ ["mobile", "moneypot", "monitor"]
  *            ["mouse", "mousepad"]
@@ -89,21 +90,26 @@ public class Amazon1 {
                     .collect(toList());
 
             // Add new list of repo search suggestions to primary list
-            searchSuggestions.add(repoSuggestionsList);
+            if(!repoSuggestionsList.isEmpty())
+                searchSuggestions.add(repoSuggestionsList);
         }
 
         // Remove initial duplicate entry - NTS: Fixed all test cases after adding. Don't ask.
-        // Actually read the words above about starting with first 2 chars; aka, starting for loop above @ 1 should fix it.
         searchSuggestions.remove(0);
 
         // Return List of Search Suggestions
         return searchSuggestions;
     }
 
+
     @Test
-    public void testSearch() {
-        List<String> input = Arrays.asList("bags", "baggage", "banner", "box", "cloths");
-        assertThat(searchSuggestions(input, "customer").size(), is(4));
+    public void testSearch_exampleOne() {
+        List<String> input = Arrays.asList("mobile", "mouse", "moneypot", "monitor", "mousepad");
+        List<List<String>> output = searchSuggestions(input, "mouse");
+        assertThat(output.size(), is(4));
+        assertThat(output.get(0).size(), is(3));
+        assertThat(output.get(0), contains("mobile", "moneypot", "monitor"));
+        assertThat(output.get(1), contains("mouse", "mousepad"));
     }
 
 

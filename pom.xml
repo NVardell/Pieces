@@ -11,6 +11,7 @@
     <artifactId>pieces</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -18,11 +19,19 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+
+    <!--    DEPENDENCY VERSIONS    -->
     <properties>
-        <hamcrest.version>1.3</hamcrest.version>
+        <java.version>17</java.version>
+        <apache.lang.version>3.12.0</apache.lang.version>
+        <apache.math.version>3.6.1</apache.math.version>
+        <combosLib.version>3.3.2</combosLib.version>
+        <commons.version>2.11.0</commons.version>
         <cucumber.version>7.1.0</cucumber.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <guava.version>31.0.1-jre</guava.version>
+        <h2.version>2.0.204</h2.version>
+        <hamcrest.version>1.3</hamcrest.version>
+        <lombok.version>1.18.22</lombok.version>
     </properties>
 
 
@@ -66,33 +75,33 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
+            <version>${apache.lang.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-math3</artifactId>
-            <version>3.6.1</version>
+            <version>${apache.math.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.0.1-jre</version>
+            <version>${guava.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.dpaukov</groupId>
             <artifactId>combinatoricslib3</artifactId>
-            <version>3.3.2</version>
+            <version>${combosLib.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.11.0</version>
+            <version>${commons.version}</version>
         </dependency>
 
 
@@ -119,7 +128,7 @@
 
 
     <!--    BUILD PLUGIN CONFIGS    -->
-    <build>
+    <!-- <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -128,11 +137,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>16</source>
                     <target>16</target>
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build> -->
 </project>

@@ -14,9 +14,6 @@ import static org.hamcrest.core.Is.is;
  * PROBLEM
  *      - 
  *
- * NOTES
- *      - 
- *
  * CONSTRAINTS
  *      - 
  *

@@ -86,7 +86,7 @@ public class JPMC {
     private static List<String> lines, lines_expected;
 
     @Test
-    public void exampleMap_Test() {
+    public void exampleOne_Test() {
         lines = new ArrayList<String>() {{
             add("###...##..");
             add("....#....#");
@@ -100,6 +100,35 @@ public class JPMC {
             add("#.*###*#.#");
             add("S#*#.#*#..");
             add("***#..*E#.");
+        }};
+        runner(lines, lines_expected);
+    }
+
+    @Test
+    public void exampleTwo_Test() {
+        lines = new ArrayList<String>() {{
+            add("E##..#.#...");
+            add(".....#...##");
+            add("####.###.#.");
+            add("...........");
+            add(".###.######");
+            add("..##.#....#");
+            add("...#..#.#..");
+            add("##..#.#..#.");
+            add("..#.#...##.");
+            add("#...#.#..#S");
+        }};
+        lines_expected = new ArrayList<String>() {{
+            add("E##..#.#...");
+            add("*****#...##");
+            add("####*###.#.");
+            add("....*......");
+            add(".###*######");
+            add("..##*#.***#");
+            add("...#**#*#**");
+            add("##..#*#*.#*");
+            add("..#.#***##*");
+            add("#...#.#..#S");
         }};
         runner(lines, lines_expected);
     }

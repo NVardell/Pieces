@@ -16,7 +16,60 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
- * JPMC - Take-home Code Challenge
+ * NAME - Dungeon Escape
+ * COMPANY - JPMC - Java Software Engineer
+ *
+ * DETAILS
+ *      - You are lost in a dungeon and need to find the shortest path out.
+ *      The dungeon is a grid of R rows and C columns.
+ *      It's composed of two types of cells:
+ *          • Passable cells where you can move up, down, left, or right
+ *          • Impassable cells filled with solid rock
+ * PROBLEM
+ *      - Write a program to determine if it is possible to escape by finding the
+ *      shortest path to the exit.
+ *
+ * CONSTRAINTS
+ *      - You cannot move diagonally between cells.
+ *      - If there is no path to escape print 'Trapped'.
+ *
+ * INPUTS / OUTPUTS
+ *      - IN
+ *          + A map of the dungeon shown as R lines with C characters in each line.
+ *          + Every character corresponds to a cell of the dungeon's grid & designates its properties.
+ *              • Passable cells are marked with a period '.'
+ *              • Impassable cells are marked with a hash '#'
+ *              • The start position is at cell 'S'
+ *              • The exit is at cell 'E'
+ *      - OUT
+ *          + The same map of the dungeon but each '.' character must be replaced with an
+ *          asterisk character along the shortest path from the start to the exit.
+ *              - Maximum length SubArray with a product of 1
+ *
+ * EXAMPLE #1
+ *      In ~                Out ~
+ *        dungeon = [         shortPath = [
+ *          ###...##..          ###***##..
+ *          ....#....#          ..**#**..#
+ *          #..###.#.#          #.*###*#.#
+ *          S#.#.#.#..          S#*#.#*#..
+ *          ...#...E#.          ***#..*E#.
+ *        ]                   ]
+ *
+ * EXAMPLE #2
+ *      In ~                Out ~
+ *        dungeon = [         shortPath = [
+ *         E##..#.#...         E##..#.#...
+ *         .....#...##         *****#...##
+ *         ####.###.#.         ####*###.#.
+ *         ...........         ....*......
+ *         .###.######         .###*######
+ *         ..##.#....#         ..##*#.***#
+ *         ...#..#.#..         ...#**#*#**
+ *         ##..#.#..#.         ##..#*#*.#*
+ *         ..#.#...##.         ..#.#***##*
+ *         #...#.#..#S         #...#.#..#S
+ *      ]                   ]
  *
  * @author Nate Vardell
  * @since 4/23/2021

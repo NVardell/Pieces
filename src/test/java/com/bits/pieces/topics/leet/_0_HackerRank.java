@@ -9,6 +9,11 @@ import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasSize;
+
 /**
  * HackerRank Practice Question ~ Kashable
  *
@@ -59,17 +64,9 @@ public class _0_HackerRank {
 
     @Test
     public void tests() {
-//        assertThat(solution(15), hasSize(15));
-//        assertThat(solution(15), hasItem("14"));
-//        assertThat(solution(15), contains("1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz", "11", "Fizz", "13", "14", "FizzBuzz"));
-        // AVG 1904 20 T
-        // 0
-        String test = "AVG190420T";
-        System.out.println(test);
-        System.out.println(test.substring(0,3));
-        System.out.println(test.substring(3,7)+"\n");
-        System.out.println(test.substring(7,test.length()-1));
-        System.out.println(test.substring(test.length()-1));
+        assertThat(solution(15), hasSize(15));
+        assertThat(solution(15), hasItem("14"));
+        assertThat(solution(15), contains("1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz", "11", "Fizz", "13", "14", "FizzBuzz"));
     }
 
     public List<String> solution(int x) {

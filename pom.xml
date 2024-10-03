@@ -26,7 +26,7 @@
         <apache.lang.version>3.12.0</apache.lang.version>
         <apache.math.version>3.6.1</apache.math.version>
         <combosLib.version>3.3.2</combosLib.version>
-        <commons.version>2.11.0</commons.version>
+        <commons.version>2.14.0</commons.version>
         <cucumber.version>7.1.0</cucumber.version>
         <guava.version>32.0.0-jre</guava.version>
         <h2.version>2.0.204</h2.version>
